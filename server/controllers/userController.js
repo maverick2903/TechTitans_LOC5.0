@@ -3,10 +3,15 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const app = express();
 app.use(express.json());
+const fileUpload=require('express-fileupload')
+const pdfParse=require('pdf-parse')
+app.use(fileUpload())
 const User = require('../models/userSchema')
 const Feedback = require('../models/feedback')
+const Employee=require('../models/employeeSchema')
+const Recruiter=require('../models/recruiterSchema')
 const nodemailer = require('nodemailer')
-
+const sendEmail=require('../utils/functions')
 const getAuth = async (req, res) => {
     try {
         console.log('sss')
@@ -18,8 +23,9 @@ const getAuth = async (req, res) => {
 
 const newUser = async (req, res) => {
     try {
+        let resumeText
         console.log(req.body)
-        const { username, password, email, country, socials, phoneNumber,role, firstName, lastName, profilePic, phoneNumberPrefix } = req.body
+        const { username, password, email, country, socials, phoneNumber,role, firstName, lastName, profilePic, phoneNumberPrefix,resume,skills,yearsOfExp,description,highestEducation,field,city,pincode,laidOff,laidOffDoc,companyName,basedOutOff,recPincode } = req.body
         var name = firstName + " " + lastName
         var phone = phoneNumberPrefix + " " + phoneNumber
         console.log(role)
@@ -36,6 +42,21 @@ const newUser = async (req, res) => {
         const user = new User({ username, password, email, country,role, socials, phoneNumber: phone, name, profilePic });
         await user.save();
 
+        if(role==='employee')
+        {
+            pdfParse(req.files.pdfFile).then(result=>{
+                resumeText=result
+            })
+            const employee=new Employee({resume,skills,yearsOfExp,description,highestEducation,field,city,pincode,laidOff,laidOffDoc,resumeText })
+            
+            await employee.save()
+        }
+        else if(role==='recruiter')
+        {
+            const recruiter=new Recruiter({companyName,basedOutOff,recPincode})
+            await recruiter.save()
+        }
+        await sendEmail({emailId:email,subject:'Signed up',message:'Verification mail for your account on JobSearch'})
         res.status(200).json({ message: "Successfully Registered" });
 
     } catch (error) {
@@ -59,7 +80,7 @@ const loginUser = async (req, res) => {
                     sameSite: "none",
                     secure: true,
                 })
-                return res.status(200).json({ message: "Login successful" })
+                return res.status(200).json({ message: "Login successful",role:userToBeChecked.role })
             } else {
                 return res.status(400).json({ message: "password did not match" })
             }
@@ -75,6 +96,7 @@ const loginUser = async (req, res) => {
                         sameSite: "none",
                         secure: true
                     })
+                    await sendEmail({emailId:email,subject:'Logged In',message:'Verification mail for login on JobSearch'})
                     return res.status(200).json({ message: "Login successful" })
                 } else {
                     return res.status(400).json({ message: "password did not match" })
@@ -119,24 +141,7 @@ const forgotPass = async (req, res) => {
             return res.status(400).json({ message: "no user found" });
         const otp = Math.floor(Math.random() * 10000);
         await User.findByIdAndUpdate(userData._id, { otp: otp, otpExpire: new Date().getTime() + (300 * 1000) });
-        var transporter = nodemailer.createTransport({
-            service: "gmail",
-            auth: {
-                user: process.env.EMAIL,
-                pass: process.env.PASS,
-            },
-        });
-        var mailOptions = {
-            from: "try.user99@gmail.com",
-            to: userData.email,
-            subject: "OTP for your account for <LOGO>",
-            text: `OTP to reset password is ${otp}, Please ignore this message if you did not otp for this`,
-        };
-        transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-                console.log(error);
-            }
-        });
+        await sendEmail({emailId:email,subject:'OTP for your account for <LOGO>',message:`OTP to reset password is ${otp}, Please ignore this message if you did not otp for this`})
         res.status(200).json({ message: "OTP sent on registered email" });
     } catch (error) {
         console.log(error)
