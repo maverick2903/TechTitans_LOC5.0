@@ -42,6 +42,19 @@ const showUsersInterested=async(req,res)=>{
     }
 }
 
+const userForJob=async(req,res)=>{
+    try {
+        const {jobId}=req.body
+        const job=await Job.findById(jobId)
+        const userIds = job.users;
+        const users = await User.find({ _id: { $in: userIds } });
+        res.status(200).json(users);
+    } catch (error) {
+        console.log(error)
+        return res.status(400).json({ message: error })
+    }
+}
+
 const filterUsers=async(req,res)=>{
     try {
         const {field,criteria}=req.body
@@ -77,4 +90,4 @@ const recruiterDetails=async(req,res)=>{
     }
 }
 
-module.exports={addJobPosting,showUsersInterested,filterUsers,recruiterDetails}
+module.exports={addJobPosting,showUsersInterested,filterUsers,recruiterDetails,userForJob}

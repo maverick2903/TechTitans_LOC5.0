@@ -223,7 +223,7 @@ const searchedUser=async(req,res)=>{
                 {email:{$regex:req.query.search}}
             ]
         }:{}
-        const users=await User.find(keyword).find({_id:{$ne:userData._id}})
+        const users=await User.find(keyword).find({_id:{$ne:req.user._id}})
         res.status(200).json({users})
     } catch (error) {
         res.status(400).json({message:error.message})
