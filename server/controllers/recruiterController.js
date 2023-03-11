@@ -22,7 +22,7 @@ const addJobPosting=async(req,res)=>{
         let time=date.getDate()+'/'+date.getMonth()+'/'+date.getFullYear()
         job.timeOfPosting=time
         job.pincode=user.recPincode
-        
+
         await job.save()
     } catch (error) {
         console.log(error)
@@ -30,4 +30,14 @@ const addJobPosting=async(req,res)=>{
     }
 }
 
-module.exports={addJobPosting}
+const showUsersInterested=async(req,res)=>{
+    try {
+        const jobs=await Job.find({recruiterId:req.user._id})
+        res.status(200).json({jobs})
+    } catch (error) {
+        console.log(error)
+        return res.status(400).json({ message: error })
+    }
+}
+
+module.exports={addJobPosting,showUsersInterested}
