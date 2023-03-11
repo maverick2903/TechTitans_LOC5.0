@@ -25,7 +25,7 @@ export default function EmployeePage() {
   return (
     <Grid p='2em' gap='2rem'>
       <GridItem>
-        <Heading>{auth.name}</Heading>
+        <Heading>{auth && auth.name}</Heading>
       </GridItem>
       <GridItem>
         <Text fontSize='2xl' mb='0.5em'>

@@ -19,7 +19,7 @@ import {
   Spacer,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Navigate, NavLink, useNavigate } from "react-router-dom";
 
 const hrefmap = {
   "About us": "about",
@@ -65,7 +65,8 @@ export default function Navbar(props) {
       method: "GET",
       credentials: "include",
     });
-    window.location.reload(true);
+    props.setAuth(null)
+    window.location.reload(true)
   };
 
   return (
