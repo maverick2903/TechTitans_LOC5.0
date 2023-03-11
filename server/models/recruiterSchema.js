@@ -26,7 +26,7 @@ const recruiterSchema = new mongoose.Schema({
 },{timestamps:true})
 
 recruiterSchema.pre("save", async function (next) {
-    const loc = await geocoder.geocode(this.pincode);
+    const loc = await geocoder.geocode(this.recPincode);
     this.location = {
         type: "Point",
         coordinates: [loc[0].latitude, loc[0].longitude],
