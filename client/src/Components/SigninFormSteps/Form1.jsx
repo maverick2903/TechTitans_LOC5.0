@@ -17,18 +17,13 @@ export default function Form1(props) {
 
   useEffect(() => {
     props.setPhoneNumberPrefix(
-      countries
-        .find((country) => country.name == props.data.country)
-        .phonecode.charAt(0) == "+"
-        ? countries.find((country) => country.name == props.data.country)
-            .phonecode
-        : "+" +
-            countries.find((country) => country.name == props.data.country)
-              .phonecode
+      countries.find(country => country.name == props.data.country).phonecode.charAt(0) == "+"
+        ? countries.find(country => country.name == props.data.country).phonecode
+        : "+" + countries.find(country => country.name == props.data.country).phonecode
     );
   }, [props.data.country]);
 
-  const dealingWithPhoneNumberPrefixOnCountryChange = (e) => {
+  const dealingWithPhoneNumberPrefixOnCountryChange = e => {
     props.setFormData(e);
   };
 
@@ -37,43 +32,45 @@ export default function Form1(props) {
       <Heading
         textAlign={"center"}
         fontSize={{ sm: "2xl", md: "4xl", lg: "5xl", xl: "5xl" }}
-        mb="5%"
-      >
+        mb='5%'>
         User Details
       </Heading>
 
       <HStack spacing={8}>
-        <div className="parent">
+        <div className='parent'>
           <FormControl>
-            <FormLabel htmlFor="firstName">First name</FormLabel>
+            <FormLabel htmlFor='firstName'>First name</FormLabel>
             <Input
-              id="firstName"
+              id='firstName'
               value={props.data.firstName}
               onChange={props.setFormData}
+              focusBorderColor='#af99ff'
             />
           </FormControl>
         </div>
 
-        <div className="parent">
+        <div className='parent'>
           <FormControl>
-            <FormLabel htmlFor="lastName">Last name</FormLabel>
+            <FormLabel htmlFor='lastName'>Last name</FormLabel>
             <Input
-              id="lastName"
+              id='lastName'
               value={props.data.lastName}
               onChange={props.setFormData}
+              focusBorderColor='#af99ff'
             />
           </FormControl>
         </div>
       </HStack>
 
-      <div className="parent">
-        <FormControl mt="3%" isRequired isInvalid={props.errors.email}>
-          <FormLabel htmlFor="email">Email address</FormLabel>
+      <div className='parent'>
+        <FormControl mt='3%' isRequired isInvalid={props.errors.email}>
+          <FormLabel htmlFor='email'>Email address</FormLabel>
           <Input
-            id="email"
-            type="email"
+            id='email'
+            type='email'
             value={props.data.email}
             onChange={props.setFormData}
+            focusBorderColor='#af99ff'
           />
           {props.errors.email == "" ? (
             <FormHelperText>We'll never share your email</FormHelperText>
@@ -83,38 +80,32 @@ export default function Form1(props) {
         </FormControl>
       </div>
 
-      <div className="parent">
-        <FormControl mt="3%" isRequired>
+      <div className='parent'>
+        <FormControl mt='3%' isRequired>
           <FormLabel
-            htmlFor="country"
-            fontSize="sm"
-            fontWeight="md"
-            color="gray.700"
+            htmlFor='country'
+            fontSize='sm'
+            fontWeight='md'
+            color='gray.700'
             _dark={{
               color: "gray.50",
-            }}
-          >
+            }}>
             Country
           </FormLabel>
 
           <Select
-            id="country"
+            id='country'
             variant={"filled"}
-            name="country"
-            autoComplete="country"
-            shadow="sm"
-            size="md"
-            w="full"
+            name='country'
+            autoComplete='country'
+            shadow='sm'
+            size='md'
+            w='full'
             onChange={dealingWithPhoneNumberPrefixOnCountryChange}
             value={props.data.country}
-            rounded="md"
-          >
-            <option
-              key={-1}
-              value=""
-              disabled
-              style={{ fontWeight: "bold.600" }}
-            >
+            focusBorderColor='#af99ff'
+            rounded='md'>
+            <option key={-1} value='' disabled style={{ fontWeight: "bold.600" }}>
               Select the country
             </option>
             {countries.map((country, index) => {
@@ -128,26 +119,26 @@ export default function Form1(props) {
         </FormControl>
       </div>
 
-      <div className="parent">
-        <FormControl mt="5%" isRequired isInvalid={props.errors.phoneNumber}>
+      <div className='parent'>
+        <FormControl mt='5%' isRequired isInvalid={props.errors.phoneNumber}>
           <FormLabel
-            htmlFor="country"
-            fontSize="sm"
-            fontWeight="md"
-            color="gray.700"
+            htmlFor='country'
+            fontSize='sm'
+            fontWeight='md'
+            color='gray.700'
             _dark={{
               color: "gray.50",
-            }}
-          >
+            }}>
             Phone Number
           </FormLabel>
           <InputGroup>
             <InputLeftAddon children={props.phoneNumberPrefix} />
             <Input
-              type="number"
-              id="phoneNumber"
+              type='number'
+              id='phoneNumber'
               value={props.data.phoneNumber}
               onChange={props.setFormData}
+              focusBorderColor='#af99ff'
             />
           </InputGroup>
           {props.errors.phoneNumber == "" ? (
