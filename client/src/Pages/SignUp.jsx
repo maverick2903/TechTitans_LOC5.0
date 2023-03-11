@@ -1,19 +1,11 @@
 import React, { useMemo, useState } from "react";
-import {
-  Progress,
-  Box,
-  Button,
-  Flex,
-  Spacer,
-  useColorModeValue,
-  Tooltip,
-} from "@chakra-ui/react";
+import { Progress, Box, Button, Flex, Spacer, useColorModeValue, Tooltip } from "@chakra-ui/react";
 import Form3 from "../Components/SigninFormSteps/Form3";
 import Form1 from "../Components/SigninFormSteps/Form1";
 import Form2 from "../Components/SigninFormSteps/Form2";
 import { Country, City } from "country-state-city";
 import { useNavigate } from "react-router-dom";
-import { ValidateData } from "../Utils/validateData";
+import { ValidateData } from "../Utils/ValidateData";
 import { useToast } from "@chakra-ui/react";
 import Form4 from "../Components/SigninFormSteps/Form4";
 import Form5Employee from "../Components/SigninFormSteps/Form5Employee";
@@ -53,7 +45,7 @@ export default function SignIn() {
 
   const cities = useMemo(() => {
     var c;
-    countries.map((ctry) => {
+    countries.map(ctry => {
       if (ctry.name == data.country) {
         c = ctry.isoCode;
       }
@@ -61,7 +53,7 @@ export default function SignIn() {
     return City.getCitiesOfCountry(c);
   }, [data.country]);
 
-  const setFormData = (e) => {
+  const setFormData = e => {
     setData({ ...data, [e.target.id]: e.target.value });
     console.log(data);
   };
@@ -79,11 +71,11 @@ export default function SignIn() {
   const [profilePic, setProfilePic] = useState("");
   const [resume, setResume] = useState("");
 
-  const setProfilePicLogic = (url) => {
+  const setProfilePicLogic = url => {
     setProfilePic(url.secure_url);
   };
 
-  const setResumeLogic = (url) => {
+  const setResumeLogic = url => {
     setResume(url);
   };
 
@@ -95,7 +87,7 @@ export default function SignIn() {
     setProfilePic("");
   };
 
-  const setRole = (role) => {
+  const setRole = role => {
     setData({ ...data, role: role });
     setStep(step + 1);
     setProgress(progress + 20);
@@ -140,7 +132,7 @@ export default function SignIn() {
     }
   };
 
-  const dealingWithSignInFormSubmission = async (e) => {
+  const dealingWithSignInFormSubmission = async e => {
     e.preventDefault();
     const resp = await fetch("http://localhost:5000/user/newUser", {
       method: "POST",
@@ -179,29 +171,26 @@ export default function SignIn() {
       align={"center"}
       justify={"center"}
       alignContent={"space-evenly"}
-      bg={useColorModeValue("gray.50", "gray.800")}
-    >
+      bg={useColorModeValue("gray.50", "gray.800")}>
       <Box
         bg={useColorModeValue("white", "gray.700")}
-        borderWidth="1px"
-        rounded="lg"
+        borderWidth='1px'
+        rounded='lg'
         width={{ sm: "sm", md: "md", xl: "xl", lg: "lg" }}
-        shadow="2xl"
+        shadow='2xl'
         p={6}
         onSubmit={dealingWithSignInFormSubmission}
-        method="POST"
+        method='POST'
         noValidate
-        as="form"
-      >
+        as='form'>
         <Progress
           colorScheme={"green"}
           hasStripe
           value={progress}
-          mb="5%"
+          mb='5%'
           size={{ sm: "sm", md: "md" }}
-          mx="5%"
-          isAnimated
-        ></Progress>
+          mx='5%'
+          isAnimated></Progress>
 
         {step === 1 ? (
           <Form1
@@ -213,12 +202,7 @@ export default function SignIn() {
             data={data}
           />
         ) : step === 2 ? (
-          <Form2
-            setFormData={setFormData}
-            errors={errors}
-            setErrors={setErrors}
-            data={data}
-          />
+          <Form2 setFormData={setFormData} errors={errors} setErrors={setErrors} data={data} />
         ) : step === 3 ? (
           <Form3
             profilePic={profilePic}
@@ -231,11 +215,7 @@ export default function SignIn() {
         ) : step == 4 ? (
           <Form4 role={data.role} setRole={setRole} />
         ) : data.role == "Recruiter" ? (
-          <Form5Recruiter
-            setFormData={setFormData}
-            data={data}
-            cities={cities}
-          />
+          <Form5Recruiter setFormData={setFormData} data={data} cities={cities} />
         ) : (
           <Form5Employee
             profilePic={profilePic}
@@ -247,25 +227,23 @@ export default function SignIn() {
           />
         )}
 
-        <Flex w="100%" mt={"20px"}>
+        <Flex w='100%' mt={"20px"}>
           <Tooltip
-            placement="bottom"
-            label="You wont lose your progress"
+            placement='bottom'
+            label='You wont lose your progress'
             hasArrow
             arrowSize={9}
-            openDelay={350}
-          >
+            openDelay={350}>
             <Button
               onClick={() => {
                 setStep(step - 1);
                 setProgress(progress - 20);
               }}
               hidden={step === 1}
-              colorScheme="teal"
-              variant="outline"
-              w="7rem"
-              mr="5%"
-            >
+              colorScheme='teal'
+              variant='outline'
+              w='7rem'
+              mr='5%'>
               Back
             </Button>
           </Tooltip>
@@ -274,12 +252,11 @@ export default function SignIn() {
 
           {step !== 4 && (
             <Button
-              w="7rem"
+              w='7rem'
               hidden={step === 5}
               onClick={nextButtonLogic}
-              colorScheme="teal"
-              variant="outline"
-            >
+              colorScheme='teal'
+              variant='outline'>
               Next
             </Button>
           )}
@@ -287,12 +264,11 @@ export default function SignIn() {
           {step === 5 ? (
             <>
               <Button
-                w="7rem"
-                colorScheme="green"
-                variant="solid"
-                type="submit"
-                _hover={{ bg: "green.600" }}
-              >
+                w='7rem'
+                colorScheme='green'
+                variant='solid'
+                type='submit'
+                _hover={{ bg: "green.600" }}>
                 Submit
               </Button>
             </>
