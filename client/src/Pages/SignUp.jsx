@@ -11,13 +11,14 @@ import {
 import Form3 from "../Components/SigninFormSteps/Form3";
 import Form1 from "../Components/SigninFormSteps/Form1";
 import Form2 from "../Components/SigninFormSteps/Form2";
-import { Country } from "country-state-city";
+import { Country, City } from "country-state-city";
 import { useNavigate } from "react-router-dom";
 import { ValidateData } from "../Utils/ValidateData";
 import { useToast } from "@chakra-ui/react";
 import Form4 from "../Components/SigninFormSteps/Form4";
 import Form5Employee from "../Components/SigninFormSteps/Form5Employee";
 import Form5Recruiter from "../Components/SigninFormSteps/Form5Recruiter";
+import { useEffect } from "react";
 
 export default function SignIn() {
   const toast = useToast();
@@ -25,7 +26,7 @@ export default function SignIn() {
     return Country.getAllCountries();
   }, []);
   const navigate = useNavigate();
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(4);
   const [progress, setProgress] = useState(20);
   const [data, setData] = useState({
     firstName: "",
@@ -37,24 +38,34 @@ export default function SignIn() {
     country: "India",
     phoneNumber: "",
     socials: "",
-
     role: "",
+    pincode: "",
 
     skills: "",
     yearsOfExperience: 0,
     highestLevelOfEducation: "",
-    Field: "",
-    City: "",
-    Pincode: "",
+    field: "",
+    city: "",
 
     companyName: "",
     BasedOutOfLocation: "",
-    pincode: ""
-
   });
+
+  const cities = useMemo(() => {
+    var c;
+    countries.map((ctry) => {
+      if (ctry.name == data.country) {
+        c = ctry.isoCode;
+      }
+    });
+    return City.getCitiesOfCountry(c);
+  }, [data.country]);
+
   const setFormData = (e) => {
     setData({ ...data, [e.target.id]: e.target.value });
+    console.log(data);
   };
+
   const [errors, setErrors] = useState({
     firstName: "",
     username: "",
@@ -76,10 +87,10 @@ export default function SignIn() {
   };
 
   const setRole = (role) => {
-    setData({ ...data, role: role })
+    setData({ ...data, role: role });
     setStep(step + 1);
     setProgress(progress + 20);
-  }
+  };
 
   //  for multiple we will use array
   // const setProfilePicLogic = (url) => {
@@ -110,15 +121,14 @@ export default function SignIn() {
       });
       setErrors(err);
     } else {
-      err = { noErrors: true }
+      err = { noErrors: true };
     }
 
     if (err.noErrors === true) {
-      console.log('asdasd11')
+      console.log("asdasd11");
       setStep(step + 1);
       setProgress(progress + 20);
     }
-
   };
 
   const dealingWithSignInFormSubmission = async (e) => {
@@ -153,7 +163,6 @@ export default function SignIn() {
       }
     }
   };
-
 
   return (
     <Flex
@@ -212,19 +221,11 @@ export default function SignIn() {
           />
         ) : step == 4 ? (
           <Form4 role={data.role} setRole={setRole} />
-        ) :
-          data.role == "Recruiter" ?
-            (
-              <Form5Recruiter setFormData={setFormData}
-                data={data}
-              />
-            ) :
-            (< Form5Employee setFormData={setFormData}
-              data={data}
-            />)
-
-
-        }
+        ) : data.role == "Recruiter" ? (
+          <Form5Recruiter setFormData={setFormData} data={data} cities={cities} />
+        ) : (
+          <Form5Employee setFormData={setFormData} data={data} cities={cities}/>
+        )}
 
         <Flex w="100%" mt={"20px"}>
           <Tooltip
@@ -251,16 +252,17 @@ export default function SignIn() {
 
           <Spacer />
 
-          {step !== 4 && <Button
-            w="7rem"
-            hidden={step === 5}
-            onClick={nextButtonLogic}
-            colorScheme="teal"
-            variant="outline"
-          >
-            Next
-          </Button>}
-
+          {step !== 4 && (
+            <Button
+              w="7rem"
+              hidden={step === 5}
+              onClick={nextButtonLogic}
+              colorScheme="teal"
+              variant="outline"
+            >
+              Next
+            </Button>
+          )}
 
           {step === 5 ? (
             <>
