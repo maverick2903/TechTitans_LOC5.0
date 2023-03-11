@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema(
         },
         role:{
             type:String,
-            enum:['employee','recruiter','admin']
+            enum:['Employee','Recruiter','Admin']
         },
         phoneNumber: {
             type: String
