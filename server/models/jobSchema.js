@@ -34,7 +34,12 @@ const jobSchema=new mongoose.Schema({
         enum:['workFromHome','Office']
     },
     users:[{
-        type:mongoose.Schema.Types.ObjectId
+        user:{
+            username:{type:String},
+            name:{type:String},
+            email:{type:String},
+            phoneNumber:{type:Number}
+        }
     }],
     salary:{
         type:Number

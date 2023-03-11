@@ -4,8 +4,10 @@ const authenticate=require('../middlewares/auth')
 
 const {
     showJobListings,
-    nearByJobs
+    nearByJobs,
+    applyJob
 }=require('../controllers/jobController')
 router.post('/showJobListings',authenticate,showJobListings)
 router.post('/nearByJobs',authenticate,nearByJobs)
+router.post('/applyJob',authenticate,applyJob)
 module.exports=router

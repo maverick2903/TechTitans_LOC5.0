@@ -55,4 +55,26 @@ function calculateDistance(lat1, lng1, lat2, lng2) {
     return distance;
 }
 
-module.exports={showJobListings,nearByJobs}
+const applyJob=async(req,res)=>{
+    try {
+        const {jobId}=req.body
+        await Job.findByIdAndUpdate(jobId,{
+            $addToSet:{
+                users:{
+                    user:{
+                        username:req.user.username,
+                        name:req.user.name,
+                        email:req.user.email,
+                        phoneNumber:req.user.phoneNumber
+                    }
+                }
+            }
+        })
+        console.log(await Job.findById(jobId))
+        res.status(200).json({message:'Applied Successfully'})
+    } catch (error) {
+        console.log(error)
+    return res.status(400).json({ message: "f" })
+    }
+}
+module.exports={showJobListings,nearByJobs,applyJob}
