@@ -4,7 +4,7 @@
 // hence you can use this to display the error in UI using error element easily
 
 export const ValidateData = async (data) => {
-    console.log(data)
+  console.log(data);
   const dataToBeReturned = { ...data, noErrors: true };
   if ("username" in data) {
     if (data.username == "") {
@@ -29,21 +29,21 @@ export const ValidateData = async (data) => {
   }
 
   if ("phoneNumber" in data) {
-      if (data.phoneNumber == "") {
-          dataToBeReturned.phoneNumber = "Phone number is required";
-          dataToBeReturned.noErrors = false;
-        } else {
-        var prefix = data.phoneNumberPrefix;
-        const api_key = process.env.REACT_APP_PHONENUMBER_API_KEY;
-        const url =
-          "https://phonevalidation.abstractapi.com/v1/?api_key=" +
-          api_key +
-          "&phone=" +
-          prefix +
-          data.phoneNumber;
-        const res = await fetch(url);
-        const resInJSON = await res.json();
-        console.log(resInJSON)
+    if (data.phoneNumber == "") {
+      dataToBeReturned.phoneNumber = "Phone number is required";
+      dataToBeReturned.noErrors = false;
+    } else {
+      var prefix = data.phoneNumberPrefix;
+      const api_key = "3782a1e46f204055b19afd48ee7bc2a0";
+      const url =
+        "https://phonevalidation.abstractapi.com/v1/?api_key=" +
+        api_key +
+        "&phone=" +
+        prefix +
+        data.phoneNumber;
+      const res = await fetch(url);
+      const resInJSON = await res.json();
+      console.log(resInJSON);
       if (!resInJSON.valid) {
         dataToBeReturned.phoneNumber = `Phone number is invalid for ${data.country}`;
         dataToBeReturned.noErrors = false;
@@ -67,7 +67,6 @@ export const ValidateData = async (data) => {
       dataToBeReturned.password = "Password is required";
       dataToBeReturned.noErrors = false;
     } else if (false) {
-      
     } else {
       dataToBeReturned.password = "";
     }
