@@ -2,6 +2,16 @@
   font-family: "Quicksand", sans-serif;
 }
 
+::-webkit-scrollbar {
+  background: transparent;
+  width: 0.2em;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #b5d0ff;
+  border-radius: 100vw;
+}
+
 body {
   min-height: 100vh;
 }
@@ -17,8 +27,63 @@ footer {
 
 nav a.active {
   font-weight: bold;
+  color: #af99ff;
 }
 
 .form-input:focus-within:focus-within label {
   font-weight: bold;
 }
+
+main {
+  display: grid;
+  grid-auto-rows: 1fr;
+  overflow-x: hidden;
+}
+
+.hero {
+  /* display: flex; */
+  /* align-items: center; */
+  justify-content: center;
+  padding: 5rem 0;
+  /* text-align: center; */
+  height: 90vh;
+  color: #af99ff;
+}
+
+.hero-header {
+  font-size: 5rem;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+section {
+  display: grid;
+  place-items: center;
+  padding: 5rem;
+  height: 90vh;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+section:nth-child(odd) img {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.section-header {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.section-img {
+  transform-style: preserve-3d;
+  transform: perspective(1000px);
+}
+
+/* .section-img img {
+  transform: rotateY(0);
+  transition: all 250ms ease;
+}
+
+.section-img:hover img {
+  transform: rotateY(-25deg);
+} */

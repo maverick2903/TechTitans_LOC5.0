@@ -5,15 +5,22 @@ import JobListing from "../Components/JobListing";
 
 export default function EmployeePage() {
   const [auth] = useOutletContext();
-  // const [Jobs, setJobs] = useState([]);
+  const [Jobs, setJobs] = useState([]);
 
-  // const getJobs = async () => {};
+  const getJobs = async () => {
+    let res = await fetch("http://localhost:5000/job/showJobListings", {
+      method: "POST",
+      body: {},
+      credentials: "include",
+    });
+    let data = await res.json();
+    console.log(data.allJobs);
+    setJobs(data["allJobs"]);
+  };
 
-  // useEffect(() => {
-  //   getJobs();
-
-  //   return () => {};
-  // }, []);
+  useEffect(() => {
+    getJobs();
+  }, []);
 
   const jobs = [
     {
@@ -61,7 +68,7 @@ export default function EmployeePage() {
           Jobs
         </Text>
         <Box display='grid' gap='1rem'>
-          {jobs.map(x => (
+          {Jobs.map(x => (
             <JobListing {...x} key={x.JobTitle} />
           ))}
         </Box>

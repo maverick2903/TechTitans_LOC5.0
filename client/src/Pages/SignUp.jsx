@@ -139,7 +139,7 @@ export default function SignIn() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ ...data, phoneNumberPrefix, profilePic,resume }),
+      body: JSON.stringify({ ...data, phoneNumberPrefix, profilePic, resume }),
     });
     const responseInJSON = await resp.json();
     if (resp.status == 200) {
