@@ -45,6 +45,7 @@ export default function SplitLoginPage() {
 
     if (response.status === 200) {
       console.log(await response.json());
+      
       navigate("/dashboard");
       toast({
         title: "Login Successful!",

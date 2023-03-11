@@ -33,19 +33,19 @@ export default function Form2(props) {
       <Heading
         textAlign={"center"}
         fontSize={{ sm: "2xl", md: "4xl", lg: "5xl", xl: "5xl" }}
-        mb="5%"
-      >
+        mb='5%'>
         Setup your account
       </Heading>
 
-      <div className="parent">
+      <div className='parent'>
         <FormControl isRequired isInvalid={props.errors.username}>
-          <FormLabel htmlFor="username">Username</FormLabel>
+          <FormLabel htmlFor='username'>Username</FormLabel>
           <Input
-            id="username"
+            focusBorderColor='#af99ff'
+            id='username'
             value={props.data.username}
             onChange={props.setFormData}
-            mb={'10px'}
+            mb={"10px"}
           />
           {props.errors.username == "" ? (
             <FormHelperText></FormHelperText>
@@ -55,25 +55,18 @@ export default function Form2(props) {
         </FormControl>
       </div>
 
-      <div className="parent">
-        <FormControl
-          mt="3%"
-          id="password"
-          isRequired
-          isInvalid={props.errors.password}
-        >
+      <div className='parent'>
+        <FormControl mt='3%' id='password' isRequired isInvalid={props.errors.password}>
           <FormLabel>Password</FormLabel>
-          <InputGroup mb={'17px'}>
+          <InputGroup mb={"17px"}>
             <Input
+              focusBorderColor='#af99ff'
               type={showPassword ? "text" : "password"}
               value={props.data.password}
               onChange={props.setFormData}
             />
             <InputRightElement h={"full"}>
-              <Button
-                variant={"ghost"}
-                onClick={() => setShowPassword(!showPassword)}
-              >
+              <Button variant={"ghost"} onClick={() => setShowPassword(!showPassword)}>
                 {showPassword ? <ViewIcon /> : <ViewOffIcon />}
               </Button>
             </InputRightElement>
@@ -82,16 +75,12 @@ export default function Form2(props) {
         </FormControl>
       </div>
 
-      <div className="parent">
-        <FormControl
-          mt="3%"
-          id="confirmPassword"
-          isRequired
-          isInvalid={props.errors.password}
-        >
+      <div className='parent'>
+        <FormControl mt='3%' id='confirmPassword' isRequired isInvalid={props.errors.password}>
           <FormLabel>Confirm Password</FormLabel>
           <InputGroup>
             <Input
+              focusBorderColor='#af99ff'
               type={showConfirmPassword ? "text" : "password"}
               value={props.data.confirmPassword}
               onChange={props.setFormData}
@@ -99,16 +88,13 @@ export default function Form2(props) {
             <InputRightElement h={"full"}>
               <Button
                 variant={"ghost"}
-                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-              >
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
                 {showConfirmPassword ? <ViewIcon /> : <ViewOffIcon />}
               </Button>
             </InputRightElement>
           </InputGroup>
           {props.errors.password == "" ? (
-            <FormHelperText>
-              Please dont tell your password to anyone!
-            </FormHelperText>
+            <FormHelperText>Please dont tell your password to anyone!</FormHelperText>
           ) : (
             <FormErrorMessage>{props.errors.password}</FormErrorMessage>
           )}

@@ -25,56 +25,50 @@ export default function Form5Employee(props) {
       <Heading
         textAlign={"center"}
         fontSize={{ sm: "2xl", md: "4xl", lg: "5xl", xl: "5xl" }}
-        mb="5%"
-      >
+        mb='5%'>
         Personal details
       </Heading>
 
-      <div className="parent">
-        <FormControl mt="3%">
-          <FormLabel htmlFor="skills">Enter your skills</FormLabel>
+      <div className='parent'>
+        <FormControl mt='3%'>
+          <FormLabel htmlFor='skills'>Enter your skills</FormLabel>
           <Input
-            id="skills"
-            type="text"
-            placeholder="NodeJS , ReactJs"
+            id='skills'
+            type='text'
+            placeholder='NodeJS , ReactJs'
             value={props.data.skills}
             onChange={props.setFormData}
+            focusBorderColor='#af99ff'
           />
         </FormControl>
       </div>
 
-      <div className="parent">
-        <FormControl mt="3%" isRequired>
+      <div className='parent'>
+        <FormControl mt='3%' isRequired>
           <FormLabel
-            htmlFor="basedOutOfLocation"
-            fontSize="sm"
-            fontWeight="md"
-            color="gray.700"
+            htmlFor='basedOutOfLocation'
+            fontSize='sm'
+            fontWeight='md'
+            color='gray.700'
             _dark={{
               color: "gray.50",
-            }}
-          >
+            }}>
             City
           </FormLabel>
 
           <Select
-            id="city"
+            id='city'
             variant={"filled"}
-            name="basedOutOfLocation"
-            autoComplete="city"
-            shadow="sm"
-            size="md"
-            w="full"
+            name='basedOutOfLocation'
+            autoComplete='city'
+            shadow='sm'
+            size='md'
+            w='full'
             onChange={props.setFormData}
             value={props.data.city}
-            rounded="md"
-          >
-            <option
-              key={-1}
-              value=""
-              disabled
-              style={{ fontWeight: "bold.600" }}
-            >
+            rounded='md'
+            focusBorderColor='#af99ff'>
+            <option key={-1} value='' disabled style={{ fontWeight: "bold.600" }}>
               Select the city
             </option>
 
@@ -89,22 +83,21 @@ export default function Form5Employee(props) {
         </FormControl>
       </div>
 
-      <div className="parent">
-        <FormControl mt="5%" isRequired>
+      <div className='parent'>
+        <FormControl mt='5%' isRequired>
           <FormLabel
-            htmlFor="pincode"
-            fontSize="sm"
-            fontWeight="md"
-            color="gray.700"
+            htmlFor='pincode'
+            fontSize='sm'
+            fontWeight='md'
+            color='gray.700'
             _dark={{
               color: "gray.50",
-            }}
-          >
+            }}>
             Pincode
           </FormLabel>
           <Input
-            type="number"
-            id="pincode"
+            type='number'
+            id='pincode'
             value={props.data.pincode}
             onChange={props.setFormData}
           />

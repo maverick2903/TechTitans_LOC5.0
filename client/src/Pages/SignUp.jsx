@@ -76,7 +76,7 @@ export default function SignIn() {
   };
 
   const setResumeLogic = url => {
-    setResume(url);
+    setResume(url.secure_url);
   };
 
   const deleteResumeLogic = () => {
@@ -122,7 +122,7 @@ export default function SignIn() {
       });
       setErrors(err);
     } else {
-      err = { noErrors: true };
+      err = { noErrors: true }; 
     }
 
     if (err.noErrors === true) {
@@ -131,7 +131,6 @@ export default function SignIn() {
       setProgress(progress + 25);
     }
   };
-
   const dealingWithSignInFormSubmission = async e => {
     e.preventDefault();
     const resp = await fetch("http://localhost:5000/user/newUser", {
@@ -155,12 +154,15 @@ export default function SignIn() {
       if (responseInJSON.message == "Username is not unique") {
         setErrors({ ...errors, username: "This username is taken" });
         setStep(2);
+        setProgress(25)
       } else if (responseInJSON.message == "Email is not unique") {
         setErrors({
           ...errors,
           email: "An account already exists for this email",
         });
         setStep(1);
+        setProgress(0);
+
       }
     }
   };

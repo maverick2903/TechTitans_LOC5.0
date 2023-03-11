@@ -19,7 +19,7 @@ import {
   Spacer,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const hrefmap = {
   "About us": "about",
@@ -61,7 +61,7 @@ export default function Navbar(props) {
   const { colorMode, toggleColorMode } = useColorMode();
 
   const dealingWithLogout = async () => {
-    const res = await fetch("http://localhost:5000/user/logout", {
+    await fetch("http://localhost:5000/user/logout", {
       method: "GET",
       credentials: "include",
     });

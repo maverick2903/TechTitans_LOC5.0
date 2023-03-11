@@ -19,16 +19,20 @@ import AuthLayout from "./Layouts/AuthLayout";
 import EmployeePage from "./Pages/EmployeePage";
 import RecruiterPage from "./Pages/RecruiterPage";
 import AdminPage from "./Pages/AdminPage";
+import ChatPage from "./Pages/ChatPage";
+import Loader from "./Components/Loader";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<RootLayout />}>
       <Route index element={<Home />} />
       <Route element={<AuthLayout />}>
-        <Route path='dashboard' element={<h1>dashboard loading...</h1>} />
+        <Route path='dashboard' element={<Loader />} />
         <Route path='employee' element={<EmployeePage />} />
         <Route path='recruiter' element={<RecruiterPage />} />
         <Route path='admin' element={<AdminPage />} />
+        <Route path="/employee/chat" element={< ChatPage/>} />
+        <Route path="/recruiter/chat" element={< ChatPage/>} />
       </Route>
 
       <Route path='login' element={<SplitLoginPage />} />
