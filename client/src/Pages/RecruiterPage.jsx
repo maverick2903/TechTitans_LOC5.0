@@ -27,7 +27,6 @@ const RecruiterPage = () => {
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [jobData, setJobData] = useState({
-    company: "",
     field: "",
     jobTitle: "",
     yearsOfExp: "",
@@ -57,7 +56,15 @@ const RecruiterPage = () => {
         "Content-Type": "application/json",
       },
       credentials: "include",
-      body: JSON.stringify({ jobData, quizValue, placeValue }),
+      body: JSON.stringify({
+        field: jobData.field,
+        jobTitle: jobData.jobTitle,
+        yearsOfExp: jobData.yearsOfExp,
+        skills: jobData.skills,
+        quizOrNot: quizValue,
+        workLocation: placeValue,
+        salary: jobData.salary,
+      }),
     });
     if (resp.status == 200) {
       toast({
@@ -67,6 +74,7 @@ const RecruiterPage = () => {
         autoClose: 300,
         position: "bottom-right",
       });
+      onClose();
     } else {
       //show that wrong credentials
       toast({
@@ -78,6 +86,8 @@ const RecruiterPage = () => {
       });
     }
   };
+
+  const [allJobs, setAllJobs] = useState();
 
   return (
     <Box
@@ -115,14 +125,23 @@ const RecruiterPage = () => {
         </Text>
         <Box w="100%" borderWidth="1px" borderRadius="lg" overflow="hidden">
           <Stack direction="column" spacing={0}>
+            <Badge colorScheme="green" mb={3}>
+              Full-time
+            </Badge>
             <Box p="4" borderBottomWidth="1px">
               <Text fontWeight="bold">Full Stack Web Developer</Text>
               <Text fontSize="sm">San Francisco, CA</Text>
             </Box>
+            <Badge colorScheme="blue" mb={3}>
+              Remote
+            </Badge>
             <Box p="4" borderBottomWidth="1px">
               <Text fontWeight="bold">Marketing Manager</Text>
               <Text fontSize="sm">New York, NY</Text>
             </Box>
+            <Badge colorScheme="purple" mb={3}>
+              Internship
+            </Badge>
             <Box p="4">
               <Text fontWeight="bold">UI/UX Designer</Text>
               <Text fontSize="sm">Los Angeles, CA</Text>
@@ -138,12 +157,6 @@ const RecruiterPage = () => {
             <ModalCloseButton />
             <ModalBody>
               <Stack spacing="4">
-                <Input
-                  id="company"
-                  onChange={setFormData}
-                  value={jobData.company}
-                  placeholder="Company"
-                />
                 <Input
                   id="field"
                   onChange={setFormData}

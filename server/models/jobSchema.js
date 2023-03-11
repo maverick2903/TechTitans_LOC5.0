@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-
+const geocoder = require("../utils/api");
 const jobSchema=new mongoose.Schema({
     company:{
         type:String
@@ -31,7 +31,7 @@ const jobSchema=new mongoose.Schema({
     },
     workLocation:{
         type:String,
-        enum:['workFromHome','Office']
+        enum:['remote','onsite']
     },
     users:[{
         user:{
