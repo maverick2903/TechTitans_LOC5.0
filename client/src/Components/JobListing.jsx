@@ -1,10 +1,25 @@
-import { Grid, Text, useColorModeValue, Stack, Badge, Button, Image, Box } from "@chakra-ui/react";
+import {
+  Grid,
+  Text,
+  useColorModeValue,
+  Stack,
+  Badge,
+  Button,
+  Image,
+  useToast,
+} from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import { useOutletContext } from "react-router-dom";
 
 const JobListing = ({ job, key }) => {
+  const [auth] = useOutletContext();
   const { jobTitle, field, users, workLocation, recruiterId, skills, salary, _id } = job;
 
   const [Recruiter, setRecruiter] = useState({});
+  const [NApps, setNApps] = useState(users.length);
+  const [Applied, setApplied] = useState(users.map(x => x._id).includes(auth._id));
+
+  const toast = useToast();
 
   const getRecruiter = async () => {
     let res = await fetch(`http://localhost:5000/recruiter/${recruiterId}`, {
@@ -31,7 +46,17 @@ const JobListing = ({ job, key }) => {
       credentials: "include",
     });
     let applied = res.status == 200;
-    if (applied) await getRecruiter();
+    if (applied) {
+      setNApps(x => x + 1);
+      setApplied(true);
+      toast({
+        status: "success",
+        title: "Applied Successfully!",
+        description: "Successfully applied to selected job.",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
   };
 
   return (
@@ -70,9 +95,9 @@ const JobListing = ({ job, key }) => {
         {workLocation}
         {Recruiter?.rec?.basedOutOff ? `, ${Recruiter?.rec?.basedOutOff}` : ""}
       </Text>
-      {users.length ? (
+      {NApps ? (
         <Text fontSize='sm' gridColumn='1 / -1'>
-          {users.length} have already applied!
+          {NApps} have already applied!
         </Text>
       ) : (
         ""
@@ -85,17 +110,30 @@ const JobListing = ({ job, key }) => {
         ))}
       </Stack>
 
-      <Button
-        variant='solid'
-        backgroundColor='hsla(253, 100%, 80%, 0.5)'
-        gridColumn='1 / -1'
-        borderColor='#af99ff'
-        _hover={{
-          backgroundColor: "#af99ff",
-        }}
-        onClick={applyJob}>
-        Apply
-      </Button>
+      {Applied ? (
+        <Button
+          variant='solid'
+          backgroundColor='hsla(253, 100%, 80%, 0.5)'
+          gridColumn='1 / -1'
+          borderColor='#af99ff'
+          _hover={""}
+          _active={""}
+          disabled>
+          Applied!
+        </Button>
+      ) : (
+        <Button
+          variant='solid'
+          backgroundColor='hsla(253, 100%, 80%, 0.5)'
+          gridColumn='1 / -1'
+          borderColor='#af99ff'
+          _hover={{
+            backgroundColor: "#af99ff",
+          }}
+          onClick={applyJob}>
+          Apply
+        </Button>
+      )}
     </Grid>
   );
 };
