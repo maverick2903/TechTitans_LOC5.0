@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const userSchema = new mongoose.Schema(
     {
         username: {
-            type: String,
+            type: String
         },
         password: {
             type: String,
@@ -14,15 +14,17 @@ const userSchema = new mongoose.Schema(
             type: String
         },
         email: {
-            type: String,
+            type: String
         },
         country: {
             type: String
         },
         name: {
             type: String
-        },role:{
-            type:String
+        },
+        role:{
+            type:String,
+            enum:['employee','recruiter','admin']
         },
         phoneNumber: {
             type: String
