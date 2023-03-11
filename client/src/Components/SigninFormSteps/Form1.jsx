@@ -10,7 +10,7 @@ import {
   InputLeftAddon,
   FormErrorMessage,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function Form1(props) {
   const countries = props.countries;
@@ -115,7 +115,7 @@ export default function Form1(props) {
               disabled
               style={{ fontWeight: "bold.600" }}
             >
-              Select your option
+              Select the country
             </option>
             {countries.map((country, index) => {
               return (

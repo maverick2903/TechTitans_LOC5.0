@@ -34,7 +34,7 @@ export default function Form4(props) {
             </Heading>
 
             <VStack w='100%'>
-                <Button height={'160px'} w='61%' fontSize={'40px'} rounded='3xl' onClick={()=>{dealingWithRole(0)}} >
+                <Button height={'115px'} w='50%' fontSize={'35px'} rounded='3xl' onClick={()=>{dealingWithRole(0)}} >
                 To Hire
             </Button>
             <Flex align="center" variant="dashed">
@@ -51,7 +51,7 @@ export default function Form4(props) {
                 </Divider>
             </Flex>
 
-            <Button height={'160px'} w='61%' fontSize={'40px'} rounded='3xl' onClick={()=>{dealingWithRole(1)}}>
+            <Button height={'115px'} w='50%' fontSize={'35px'} rounded='3xl' onClick={()=>{dealingWithRole(1)}}>
             To get hired
         </Button>
             </VStack >
