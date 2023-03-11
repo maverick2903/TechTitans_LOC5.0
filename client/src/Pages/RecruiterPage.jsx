@@ -111,50 +111,54 @@ const RecruiterPage = () => {
       }
     );
     const data = await resp.json();
-    console.log(data.jobs);
+    console.log(data);
     setAllJobs(data["jobs"]);
-    console.log(allJobs[0].field);
+    console.log(allJobs)
   };
   /* 
   console.log(allJobs.jobs[0].field); */
   return (
     <Box
-      height="100vh"
+      // height="100vh"
       display="flex"
       flexDirection="column"
-      alignItems="center"
+      // alignItems="center"
       justifyContent="center"
       bgGradient="linear(to-r, teal.500,green.500)"
       color="white"
     >
-      <Avatar
-        name="John Doe"
-        src="https://bit.ly/broken-link"
-        size="xl"
-        mb={5}
-      />
-      <Heading mb={5}>Welcome, John Doe</Heading>
-      <Heading as="h1" size="3xl" fontWeight="bold" mb="8">
-        Post Your Job Here
-      </Heading>
-      <Button
-        size="lg"
-        variant="solid"
-        mb="8"
-        _hover={{ bg: "teal.500", color: "white" }}
-        onClick={onOpen}
-      >
-        Post a Job
-      </Button>
+      <Box display="flex" alignItems="center" flexDirection="column">
+        <Avatar
+          name="John Doe"
+          src="https://bit.ly/broken-link"
+          size="xl"
+          mb={5}
+        />
+        <Heading mb={5}>Welcome, John Doe</Heading>
+        <Heading as="h1" size="3xl" fontWeight="bold" mb="8">
+          Post Your Job Here
+        </Heading>
+        <Button
+          size="lg"
+          variant="solid"
+          mb="8"
+          _hover={{ bg: "teal.500", color: "white" }}
+          onClick={onOpen}
+        >
+          Post a Job
+        </Button>
+      </Box>
       <Divider mb={5} />
-      <VStack spacing="8" mb="8">
-        <Text fontSize="xl" fontWeight="bold">
+      <Box>
+        <Text fontSize="xl" fontWeight="bold" textAlign="center">
           Your Job Listings:
         </Text>
-        <Box w="100%" borderWidth="1px" borderRadius="lg" overflow="hidden">
+        <Box >
           <SimpleGrid
             spacing={4}
-            templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
+            templateColumns="repeat(auto-fill, minmax(20rem, 1fr))"
+            display="flex"
+            justifyContent="space-around"
           >
             {/*             <Badge colorScheme="green" mb={3}>
               Full-time
@@ -179,13 +183,13 @@ const RecruiterPage = () => {
             </Box> */}
             {allJobs ? (
               allJobs.map((data, index) => (
-                <Card>
+                <Card >
                   <Stack alignItems="center">
                     <Text
                       color={"green.500"}
                       textTransform={"uppercase"}
                       fontWeight={800}
-                      fontSize={"sm"}
+                      fontSize={"md"}
                       letterSpacing={1.1}
                       key={index}
                     >
@@ -196,10 +200,22 @@ const RecruiterPage = () => {
                     <Heading size="md"> {data.jobTitle}</Heading>
                   </CardHeader>
                   <CardBody>
-                    <Text>
+                    <Divider mb={10} color="white"></Divider>
+                    <Box
+                      style={{
+                        display: "flex",
+                        gap: "0.5rem",
+                        flexWrap: "wrap",
+                      }}
+                    >
                       <Text as="b">Skills - </Text>
-                      {data.skills}
-                    </Text>
+                      {data.skills.split(",").map((skill) => (
+                        <VStack spacing="8" mb="8">
+                          <Badge key={skill}>{skill}</Badge>
+                        </VStack>
+                      ))}
+                    </Box>
+
                     <Text>
                       <Text as="b">Years of Experience - </Text>
                       {data.yearsOfExp}
@@ -219,11 +235,19 @@ const RecruiterPage = () => {
             )}
           </SimpleGrid>
         </Box>
-      </VStack>
+      </Box>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <form onSubmit={formSubmit} method="POST">
           <ModalContent>
+            <Badge>
+              <Avatar
+                size="xs"
+                src="https://picsum.photos/32?random=1"
+                mr={2}
+              />
+            </Badge>
+
             <ModalHeader>Add a New Job</ModalHeader>
             <ModalCloseButton />
             <ModalBody>

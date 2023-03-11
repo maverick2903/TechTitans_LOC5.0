@@ -34,7 +34,12 @@ const addJobPosting=async(req,res)=>{
 
 const showUsersInterested=async(req,res)=>{
     try {
-        const jobs=await Job.find({recruiterId:req.user._id})
+        const r=await User.findById(req.user._id)
+        console.log(r)
+        const rec=await Recruiter.findOne({username:r.username})
+        console.log(rec)
+        const jobs=await Job.find({recruiterId:rec._id})
+        console.log(jobs)
         res.status(200).json({jobs})
     } catch (error) {
         console.log(error)
