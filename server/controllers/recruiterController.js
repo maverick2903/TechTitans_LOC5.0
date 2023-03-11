@@ -15,13 +15,14 @@ const addJobPosting=async(req,res)=>{
     try {
         const {field,jobTitle,yearsOfExp,skills,quizOrNot,workLocation,salary}=req.body
         const job=new Job({field,jobTitle,yearsOfExp,skills,quizOrNot,workLocation,salary})
-        const user=req.user
+        const user=await Recruiter.findOne({username:req.user.username})
         job.company=user.companyName
         job.recruiterId=user._id
+        console.log(user._id,job.recruiterId)
         let date=new Date()
         let time=date.getDate()+'/'+date.getMonth()+'/'+date.getFullYear()
         job.timeOfPosting=time
-        job.pincode=user.recPincode
+        job.jobPincode=user.recPincode
 
         await job.save()
     } catch (error) {

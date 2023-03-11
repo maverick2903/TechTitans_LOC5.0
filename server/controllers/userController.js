@@ -215,6 +215,21 @@ const updatePass = async (req, res) => {
     }
 }
 
+const searchedUser=async(req,res)=>{
+    try {
+        const keyword=req.query.search?{
+            $or:[
+                {name:{$regex:req.query.search}},
+                {email:{$regex:req.query.search}}
+            ]
+        }:{}
+        const users=await User.find(keyword).find({_id:{$ne:userData._id}})
+        res.status(200).json({users})
+    } catch (error) {
+        res.status(400).json({message:error.message})
+    }
+}
+
 module.exports = {
     newUser,
     loginUser,
@@ -226,4 +241,5 @@ module.exports = {
     getAuth,
     newProfilePic,
     updatePass,
+    searchedUser
 };
