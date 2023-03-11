@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import {
   Box,
   Button,
@@ -14,13 +15,19 @@ import {
   Input,
   Stack,
   VStack,
+  useColorModeValue,
   Divider,
   Badge,
+  SimpleGrid,
   Avatar,
   RadioGroup,
   HStack,
   Radio,
   useToast,
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
 } from "@chakra-ui/react";
 
 const RecruiterPage = () => {
@@ -87,7 +94,7 @@ const RecruiterPage = () => {
     }
   };
 
-  const [allJobs, setAllJobs] = useState();
+  const [allJobs, setAllJobs] = useState([]);
 
   useEffect(() => {
     getAllJobs();
@@ -104,9 +111,11 @@ const RecruiterPage = () => {
       }
     );
     const data = await resp.json();
-    setAllJobs(data);
+    console.log(data.jobs);
+    setAllJobs(data["jobs"]);
+    console.log(allJobs[0].field);
   };
-/* 
+  /* 
   console.log(allJobs.jobs[0].field); */
   return (
     <Box
@@ -143,8 +152,11 @@ const RecruiterPage = () => {
           Your Job Listings:
         </Text>
         <Box w="100%" borderWidth="1px" borderRadius="lg" overflow="hidden">
-          <Stack direction="column" spacing={0}>
-            <Badge colorScheme="green" mb={3}>
+          <SimpleGrid
+            spacing={4}
+            templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
+          >
+            {/*             <Badge colorScheme="green" mb={3}>
               Full-time
             </Badge>
             <Box p="4" borderBottomWidth="1px">
@@ -164,26 +176,48 @@ const RecruiterPage = () => {
             <Box p="4">
               <Text fontWeight="bold">UI/UX Designer</Text>
               <Text fontSize="sm">Los Angeles, CA</Text>
-            </Box>
-            {/*             {allJobs.map((data, index) => (
-              <Box p="4" borderBottomWidth="1px">
-                <Text key={index} fontWeight="bold">
-                  {data.jobs[0].field}
-                </Text>
-                <Text fontSize="sm">San Francisco, CA</Text>
-              </Box>
-            ))} */}
-            {/*{allJobs ? (
+            </Box> */}
+            {allJobs ? (
               allJobs.map((data, index) => (
-                <Box p="4" borderBottomWidth="1px" key={index}>
-                  <Text fontWeight="bold">{data.jobs[0].field}</Text>
-                  <Text fontSize="sm">San Francisco, CA</Text>
-                </Box>
+                <Card>
+                  <Stack alignItems="center">
+                    <Text
+                      color={"green.500"}
+                      textTransform={"uppercase"}
+                      fontWeight={800}
+                      fontSize={"sm"}
+                      letterSpacing={1.1}
+                      key={index}
+                    >
+                      {data.field}
+                    </Text>
+                  </Stack>
+                  <CardHeader>
+                    <Heading size="md"> {data.jobTitle}</Heading>
+                  </CardHeader>
+                  <CardBody>
+                    <Text>
+                      <Text as="b">Skills - </Text>
+                      {data.skills}
+                    </Text>
+                    <Text>
+                      <Text as="b">Years of Experience - </Text>
+                      {data.yearsOfExp}
+                    </Text>
+                    <Text>
+                      <Text as="b">Salary - $</Text>
+                      {data.salary}
+                    </Text>
+                  </CardBody>
+                  <CardFooter>
+                    <Button>View interested applicants</Button>
+                  </CardFooter>
+                </Card>
               ))
             ) : (
               <Box p="4">No jobs listed yet{console.log(allJobs)}</Box>
-            )} */}
-          </Stack>
+            )}
+          </SimpleGrid>
         </Box>
       </VStack>
       <Modal isOpen={isOpen} onClose={onClose}>
