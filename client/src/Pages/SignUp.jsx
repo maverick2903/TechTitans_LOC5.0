@@ -5,7 +5,7 @@ import Form1 from "../Components/SigninFormSteps/Form1";
 import Form2 from "../Components/SigninFormSteps/Form2";
 import { Country, City } from "country-state-city";
 import { useNavigate } from "react-router-dom";
-import { ValidateData } from "../Utils/validateData";
+import { ValidateData } from "../Utils/ValidateData";
 import { useToast } from "@chakra-ui/react";
 import Form4 from "../Components/SigninFormSteps/Form4";
 import Form5Employee from "../Components/SigninFormSteps/Form5Employee";
@@ -139,7 +139,7 @@ export default function SignIn() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ ...data, phoneNumberPrefix, profilePic,resume }),
+      body: JSON.stringify({ ...data, phoneNumberPrefix, profilePic, resume }),
     });
     const responseInJSON = await resp.json();
     if (resp.status == 200) {
