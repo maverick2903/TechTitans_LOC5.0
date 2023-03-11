@@ -122,7 +122,7 @@ export default function SignIn() {
       });
       setErrors(err);
     } else {
-      err = { noErrors: true };
+      err = { noErrors: true }; 
     }
 
     if (err.noErrors === true) {

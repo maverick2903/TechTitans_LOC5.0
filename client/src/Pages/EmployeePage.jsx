@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
-import { Grid, GridItem, Heading, Container, Text, Box } from "@chakra-ui/react";
+import { NavLink, useOutletContext } from "react-router-dom";
+import {
+  Grid,
+  GridItem,
+  Heading,
+  Container,
+  Text,
+  Box,
+  Link,
+} from "@chakra-ui/react";
 import JobListing from "../Components/JobListing";
 
 export default function EmployeePage() {
@@ -52,20 +60,24 @@ export default function EmployeePage() {
 
   // console.log(auth);
   return (
-    <Grid p='2em' gap='2rem'>
-      <GridItem>
-        <Heading>{auth.name}</Heading>
-      </GridItem>
-      <GridItem>
-        <Text fontSize='2xl' mb='0.5em'>
-          Jobs
-        </Text>
-        <Box display='grid' gap='1rem'>
-          {jobs.map(x => (
-            <JobListing {...x} key={x.JobTitle} />
-          ))}
-        </Box>
-      </GridItem>
-    </Grid>
+    <>
+      
+      <Link to='chat' as={NavLink}>sadads</Link>
+      <Grid p="2em" gap="2rem">
+        <GridItem>
+          <Heading>{auth && auth.name}</Heading>
+        </GridItem>
+        <GridItem>
+          <Text fontSize="2xl" mb="0.5em">
+            Jobs
+          </Text>
+          <Box display="grid" gap="1rem">
+            {jobs.map((x) => (
+              <JobListing {...x} key={x.JobTitle} />
+            ))}
+          </Box>
+        </GridItem>
+      </Grid>
+    </>
   );
 }
