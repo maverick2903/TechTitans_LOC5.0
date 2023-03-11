@@ -21,8 +21,7 @@ const addJobPosting=async(req,res)=>{
         let date=new Date()
         let time=date.getDate()+'/'+date.getMonth()+'/'+date.getFullYear()
         job.timeOfPosting=time
-        job.pincode=user.recPincode
-
+        job.jobPincode=user.recPincode
         await job.save()
     } catch (error) {
         console.log(error)
@@ -40,4 +39,39 @@ const showUsersInterested=async(req,res)=>{
     }
 }
 
-module.exports={addJobPosting,showUsersInterested}
+const filterUsers=async(req,res)=>{
+    try {
+        const {field,criteria}=req.body
+        if(field==='yearsOfExp')
+        {
+            const users=await Employee.find({yearsOfExp:{$gt:criteria}})
+            res.status(200).json({users})
+        }else{
+            const keyword=criteria?{
+                $or:[
+                {skills:{$regex:criteria}},
+                {description:{$regex:criteria}},
+                {field:{$regex:criteria}}
+                ]
+            }:{}
+            const users=await Employee.find(keyword)
+            res.status(200).json({users})
+        }
+    } catch (error) {
+        console.log(error)
+        return res.status(400).json({ message: error })
+    }
+}
+
+const recruiterDetails=async(req,res)=>{
+    try {
+        const rec=await Recruiter.findById(req.params.id)
+        const user=await User.findOne({username:rec.username})
+        res.status(200).json({rec,user})
+    } catch (error) {
+        console.log(error)
+        return res.status(400).json({ message: error })
+    }
+}
+
+module.exports={addJobPosting,showUsersInterested,filterUsers,recruiterDetails}
