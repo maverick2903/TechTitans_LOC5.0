@@ -2,24 +2,23 @@
   font-family: "Quicksand", sans-serif;
 }
 
-main {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+body {
+  max-height: 100vh;
+}
+
+#root {
+  display: grid;
+  grid-template-rows: auto 1fr;
 }
 
 footer {
-  bottom: 0;
-  width: 100%;
-  position: absolute;
   text-align: center;
-  overflow: hidden;
 }
 
 nav a.active {
   font-weight: bold;
 }
 
-.parent:focus-within:focus-within label {
+.form-input:focus-within:focus-within label {
   font-weight: bold;
 }
