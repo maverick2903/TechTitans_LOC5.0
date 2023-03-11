@@ -14,13 +14,18 @@ const sendEmail=require('../utils/functions')
 const addJobPosting=async(req,res)=>{
     try {
         const {field,jobTitle,yearsOfExp,skills,quizOrNot}=req.body
-        const job=new Job({field,jobTitle,yearsOfExp,skills,quizOrNot})
-        job.company=req.user.companyName
-        job.recruiterId=req.user._id
-        job.timeOfPosting=new Date().getTime
+        const job=new Job({field,jobTitle,yearsOfExp,skills,quizOrNot,workLocation,salary})
+        const user=req.user
+        job.company=user.companyName
+        job.recruiterId=user._id
+        let date=new Date()
+        let time=date.getDate()+'/'+date.getMonth()+'/'+date.getFullYear()
+        job.timeOfPosting=time
         await job.save()
     } catch (error) {
         console.log(error)
         return res.status(500).json({ message: error })
     }
 }
+
+module.exports={addJobPosting}

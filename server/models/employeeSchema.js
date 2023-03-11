@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const geocoder=require('../utils/api')
 const employeeSchema=new mongoose.Schema({
+    username:{type:String},
     resume:{
         type:String
     },
