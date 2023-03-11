@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const geocoder=require('../utils/api')
 const recruiterSchema = new mongoose.Schema({
+    username:{type:String},
     companyName:{
         type:String
     },
@@ -22,7 +23,9 @@ const recruiterSchema = new mongoose.Schema({
             index: "2dsphere",
         },
         formattedAddress: String,
-    }
+    },
+    jobsAdded:[{type:mongoose.Schema.Types.ObjectId,
+    ref:'Job'}]
 },{timestamps:true})
 
 recruiterSchema.pre("save", async function (next) {

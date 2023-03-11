@@ -29,9 +29,16 @@ const jobSchema=new mongoose.Schema({
         type:Boolean,
         default:false
     },
+    workLocation:{
+        type:String,
+        enum:['workFromHome','Office']
+    },
     users:[{
         type:mongoose.Schema.Types.ObjectId
-    }]
+    }],
+    salary:{
+        type:Number
+    }
 },{timestamps:true})
 
 const Job = mongoose.model('Job', jobSchema)
