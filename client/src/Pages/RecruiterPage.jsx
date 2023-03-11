@@ -89,6 +89,25 @@ const RecruiterPage = () => {
 
   const [allJobs, setAllJobs] = useState();
 
+  useEffect(() => {
+    getAllJobs();
+  }, []);
+  const getAllJobs = async () => {
+    const resp = await fetch(
+      "http://localhost:5000/recruiter/showUsersInterested",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      }
+    );
+    const data = await resp.json();
+    setAllJobs(data);
+  };
+/* 
+  console.log(allJobs.jobs[0].field); */
   return (
     <Box
       height="100vh"
@@ -146,6 +165,24 @@ const RecruiterPage = () => {
               <Text fontWeight="bold">UI/UX Designer</Text>
               <Text fontSize="sm">Los Angeles, CA</Text>
             </Box>
+            {/*             {allJobs.map((data, index) => (
+              <Box p="4" borderBottomWidth="1px">
+                <Text key={index} fontWeight="bold">
+                  {data.jobs[0].field}
+                </Text>
+                <Text fontSize="sm">San Francisco, CA</Text>
+              </Box>
+            ))} */}
+            {/*{allJobs ? (
+              allJobs.map((data, index) => (
+                <Box p="4" borderBottomWidth="1px" key={index}>
+                  <Text fontWeight="bold">{data.jobs[0].field}</Text>
+                  <Text fontSize="sm">San Francisco, CA</Text>
+                </Box>
+              ))
+            ) : (
+              <Box p="4">No jobs listed yet{console.log(allJobs)}</Box>
+            )} */}
           </Stack>
         </Box>
       </VStack>
