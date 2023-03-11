@@ -76,7 +76,7 @@ export default function SignIn() {
   };
 
   const setResumeLogic = url => {
-    setResume(url);
+    setResume(url.secure_url);
   };
 
   const deleteResumeLogic = () => {
