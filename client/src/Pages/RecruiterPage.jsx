@@ -35,7 +35,7 @@ const RecruiterPage = () => {
     salary: "",
     users: "",
   });
-  const [quizValue, setQuizValue] = useState(false);
+  const [quizValue, setQuizValue] = useState("false");
 
   const handleQuizChange = (event) => {
     setQuizValue(event);
@@ -57,7 +57,7 @@ const RecruiterPage = () => {
         "Content-Type": "application/json",
       },
       credentials: "include",
-      body: JSON.stringify(jobData, quizValue, placeValue),
+      body: JSON.stringify({ jobData, quizValue, placeValue }),
     });
     if (resp.status == 200) {
       toast({
@@ -132,77 +132,79 @@ const RecruiterPage = () => {
       </VStack>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Add a New Job</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Stack spacing="4">
-              <Input
-                id="company"
-                onChange={setFormData}
-                value={jobData.company}
-                placeholder="Company"
-              />
-              <Input
-                id="field"
-                onChange={setFormData}
-                value={jobData.field}
-                placeholder="Field"
-              />
-              <Input
-                id="jobTitle"
-                onChange={setFormData}
-                value={jobData.jobTitle}
-                placeholder="Job Title"
-              />
-              <Box>
-                <Text>Remote or On-Site?</Text>
-              </Box>
-              <RadioGroup onChange={handlePlaceChange} id="quizOrNot">
-                <HStack spacing="34px">
-                  <Radio value="remote">Remote</Radio>
-                  <Radio value="onsite">On-site</Radio>
-                </HStack>
-              </RadioGroup>
-              <Input
-                id="skills"
-                onChange={setFormData}
-                value={jobData.skills}
-                placeholder="Skills"
-              />
-              <Input
-                id="yearsOfExp"
-                onChange={setFormData}
-                value={jobData.yearsOfExp}
-                placeholder="Years of Experience"
-              />
-              <Input
-                id="salary"
-                onChange={setFormData}
-                value={jobData.salary}
-                placeholder="Salary"
-              />
-              <Box>
-                <Text>Set Quiz for Recruitees?</Text>
-              </Box>
-              <RadioGroup onChange={handleQuizChange}>
-                <HStack spacing="34px">
-                  <Radio value="true">Yes</Radio>
-                  <Radio value="false">No</Radio>
-                </HStack>
-              </RadioGroup>
-              <Button
-                size="md"
-                variant="solid"
-                colorScheme="teal"
-                _hover={{ bg: "teal.500" }}
-                onSubmit={formSubmit}
-              >
-                Post Job
-              </Button>
-            </Stack>
-          </ModalBody>
-        </ModalContent>
+        <form onSubmit={formSubmit} method="POST">
+          <ModalContent>
+            <ModalHeader>Add a New Job</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <Stack spacing="4">
+                <Input
+                  id="company"
+                  onChange={setFormData}
+                  value={jobData.company}
+                  placeholder="Company"
+                />
+                <Input
+                  id="field"
+                  onChange={setFormData}
+                  value={jobData.field}
+                  placeholder="Field"
+                />
+                <Input
+                  id="jobTitle"
+                  onChange={setFormData}
+                  value={jobData.jobTitle}
+                  placeholder="Job Title"
+                />
+                <Box>
+                  <Text>Remote or On-Site?</Text>
+                </Box>
+                <RadioGroup onChange={handlePlaceChange} id="quizOrNot">
+                  <HStack spacing="34px">
+                    <Radio value="remote">Remote</Radio>
+                    <Radio value="onsite">On-site</Radio>
+                  </HStack>
+                </RadioGroup>
+                <Input
+                  id="skills"
+                  onChange={setFormData}
+                  value={jobData.skills}
+                  placeholder="Skills"
+                />
+                <Input
+                  id="yearsOfExp"
+                  onChange={setFormData}
+                  value={jobData.yearsOfExp}
+                  placeholder="Years of Experience"
+                />
+                <Input
+                  id="salary"
+                  onChange={setFormData}
+                  value={jobData.salary}
+                  placeholder="Salary"
+                />
+                <Box>
+                  <Text>Set Quiz for Recruitees?</Text>
+                </Box>
+                <RadioGroup onChange={handleQuizChange}>
+                  <HStack spacing="34px">
+                    <Radio value="true">Yes</Radio>
+                    <Radio value="false">No</Radio>
+                  </HStack>
+                </RadioGroup>
+                <Button
+                  size="md"
+                  variant="solid"
+                  colorScheme="teal"
+                  _hover={{ bg: "teal.500" }}
+                  type="submit"
+                >
+                  Post Job
+                </Button>
+              </Stack>
+            </ModalBody>
+          </ModalContent>
+        </form>
       </Modal>
     </Box>
   );
