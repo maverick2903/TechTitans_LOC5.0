@@ -239,8 +239,8 @@ export default function SignIn() {
         ) : (
           <Form5Employee
             profilePic={profilePic}
-            setLogic={setProfilePicLogic}
-            deleteLogic={deleteProfilePicLogic}
+            setLogic={setResumeLogic}
+            deleteLogic={deleteResumeLogic}
             setFormData={setFormData}
             data={data}
             cities={cities}
