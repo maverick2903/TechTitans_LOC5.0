@@ -13,7 +13,7 @@ import Form1 from "../Components/SigninFormSteps/Form1";
 import Form2 from "../Components/SigninFormSteps/Form2";
 import { Country, City } from "country-state-city";
 import { useNavigate } from "react-router-dom";
-import { ValidateData } from "../Utils/ValidateData";
+import { ValidateData } from "../Utils/validateData";
 import { useToast } from "@chakra-ui/react";
 import Form4 from "../Components/SigninFormSteps/Form4";
 import Form5Employee from "../Components/SigninFormSteps/Form5Employee";

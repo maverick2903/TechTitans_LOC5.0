@@ -42,16 +42,16 @@ const newUser = async (req, res) => {
         const user = new User({ username, password, email, country,role, socials, phoneNumber: phone, name, profilePic });
         await user.save();
 
-        if(role==='employee')
+        if(role==='Employee')
         {
-            pdfParse(req.files.pdfFile).then(result=>{
+            /*pdfParse(req.files.pdfFile).then(result=>{
                 resumeText=result
-            })
-            const employee=new Employee({resume,skills,yearsOfExp,description,highestEducation,field,city,pincode,laidOff,laidOffDoc,resumeText })
+            })*/
+            const employee=new Employee({resume,skills,yearsOfExp,description,highestEducation,field,city,pincode,laidOff,laidOffDoc})
             employee.username=username
             await employee.save()
         }
-        else if(role==='recruiter')
+        else if(role==='Recruiter')
         {
             const recruiter=new Recruiter({companyName,basedOutOff,recPincode})
             recruiter.username=username

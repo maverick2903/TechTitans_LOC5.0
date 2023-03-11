@@ -21,6 +21,8 @@ const addJobPosting=async(req,res)=>{
         let date=new Date()
         let time=date.getDate()+'/'+date.getMonth()+'/'+date.getFullYear()
         job.timeOfPosting=time
+        job.pincode=user.recPincode
+        
         await job.save()
     } catch (error) {
         console.log(error)
