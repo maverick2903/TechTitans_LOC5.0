@@ -19,13 +19,14 @@ const showJobListings=async(req,res)=>{
 const nearByJobs = async (req, res) => {
     try
     {
-    const lat = req.user.location.coordinates[0];
-    const lng = req.user.location.coordinates[1];
-    const jobs=await Job.find({})
+    const emp = await Employee.findOne({ username: req.user.username });
+    const lat = emp.location.coordinates[0];
+    const lng = emp.location.coordinates[1];
+    const jobs=await Job.find()
     const filteredJobs = jobs.filter((job) => {
         const distance = calculateDistance(
-            req.userData.lat,
-            req.userData.lng,
+            lat,
+            lng,
             job.lat,
             job.lng
         );

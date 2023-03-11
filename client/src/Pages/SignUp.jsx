@@ -18,7 +18,7 @@ export default function SignIn() {
   }, []);
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
-  const [progress, setProgress] = useState(20);
+  const [progress, setProgress] = useState(0);
   const [data, setData] = useState({
     firstName: "",
     username: "",
@@ -90,7 +90,7 @@ export default function SignIn() {
   const setRole = role => {
     setData({ ...data, role: role });
     setStep(step + 1);
-    setProgress(progress + 20);
+    setProgress(progress + 25);
   };
 
   //  for multiple we will use array
@@ -128,7 +128,7 @@ export default function SignIn() {
     if (err.noErrors === true) {
       console.log("asdasd11");
       setStep(step + 1);
-      setProgress(progress + 20);
+      setProgress(progress + 25);
     }
   };
 
@@ -139,7 +139,7 @@ export default function SignIn() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ ...data, phoneNumberPrefix, profilePic }),
+      body: JSON.stringify({ ...data, phoneNumberPrefix, profilePic, resume }),
     });
     const responseInJSON = await resp.json();
     if (resp.status == 200) {
@@ -237,7 +237,7 @@ export default function SignIn() {
             <Button
               onClick={() => {
                 setStep(step - 1);
-                setProgress(progress - 20);
+                setProgress(progress - 25);
               }}
               hidden={step === 1}
               colorScheme='teal'
