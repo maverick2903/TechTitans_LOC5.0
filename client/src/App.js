@@ -19,6 +19,7 @@ import AuthLayout from "./Layouts/AuthLayout";
 import EmployeePage from "./Pages/EmployeePage";
 import RecruiterPage from "./Pages/RecruiterPage";
 import AdminPage from "./Pages/AdminPage";
+import ChatPage from "./Pages/ChatPage";
 import Loader from "./Components/Loader";
 
 const router = createBrowserRouter(
@@ -30,6 +31,8 @@ const router = createBrowserRouter(
         <Route path='employee' element={<EmployeePage />} />
         <Route path='recruiter' element={<RecruiterPage />} />
         <Route path='admin' element={<AdminPage />} />
+        <Route path="/employee/chat" element={< ChatPage/>} />
+        <Route path="/recruiter/chat" element={< ChatPage/>} />
       </Route>
 
       <Route path='login' element={<SplitLoginPage />} />

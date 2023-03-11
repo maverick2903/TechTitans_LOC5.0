@@ -240,14 +240,6 @@ const RecruiterPage = () => {
         <ModalOverlay />
         <form onSubmit={formSubmit} method="POST">
           <ModalContent>
-            <Badge>
-              <Avatar
-                size="xs"
-                src="https://picsum.photos/32?random=1"
-                mr={2}
-              />
-            </Badge>
-
             <ModalHeader>Add a New Job</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
