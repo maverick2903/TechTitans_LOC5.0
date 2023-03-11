@@ -44,7 +44,6 @@ export default function Form4(props) {
                             query={['OR']}
                             styles={{ px: '2', py: '1', rounded: 'full', bg: 'teal.100' }}
                         >
-
                             OR
                         </Highlight>
                     </Text>

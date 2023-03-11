@@ -54,7 +54,6 @@ export default function Navbar(props) {
   var Links=[]
   if (!props.Auth) {
     Links.push("About us")
-    Links.push("Contact us")
     Links.push("Sign Up")
   }
 

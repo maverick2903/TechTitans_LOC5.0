@@ -18,7 +18,6 @@ import { useToast } from "@chakra-ui/react";
 import Form4 from "../Components/SigninFormSteps/Form4";
 import Form5Employee from "../Components/SigninFormSteps/Form5Employee";
 import Form5Recruiter from "../Components/SigninFormSteps/Form5Recruiter";
-import { useEffect } from "react";
 
 export default function SignIn() {
   const toast = useToast();
@@ -46,6 +45,7 @@ export default function SignIn() {
     highestLevelOfEducation: "",
     field: "",
     city: "",
+    resumeUrl: "",
 
     companyName: "",
     BasedOutOfLocation: "",
@@ -77,9 +77,18 @@ export default function SignIn() {
   });
   const [phoneNumberPrefix, setPhoneNumberPrefix] = useState("");
   const [profilePic, setProfilePic] = useState("");
+  const [resume, setResume] = useState("");
 
   const setProfilePicLogic = (url) => {
     setProfilePic(url.secure_url);
+  };
+
+  const setResumeLogic = (url) => {
+    setResume(url);
+  };
+
+  const deleteResumeLogic = () => {
+    setResume("");
   };
 
   const deleteProfilePicLogic = () => {
@@ -222,9 +231,20 @@ export default function SignIn() {
         ) : step == 4 ? (
           <Form4 role={data.role} setRole={setRole} />
         ) : data.role == "Recruiter" ? (
-          <Form5Recruiter setFormData={setFormData} data={data} cities={cities} />
+          <Form5Recruiter
+            setFormData={setFormData}
+            data={data}
+            cities={cities}
+          />
         ) : (
-          <Form5Employee setFormData={setFormData} data={data} cities={cities}/>
+          <Form5Employee
+            profilePic={profilePic}
+            setLogic={setProfilePicLogic}
+            deleteLogic={deleteProfilePicLogic}
+            setFormData={setFormData}
+            data={data}
+            cities={cities}
+          />
         )}
 
         <Flex w="100%" mt={"20px"}>

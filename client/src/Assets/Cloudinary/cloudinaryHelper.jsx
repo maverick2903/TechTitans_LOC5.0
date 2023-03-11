@@ -26,6 +26,7 @@ export const makeUploadRequest = ({ file,
         if (request.status >= 200 && request.status < 300) {
             var responseInJSON = JSON.parse(request.response)
             const { delete_token: deletetoken } = responseInJSON
+            console.log(responseInJSON)
             logic(responseInJSON)
             successCallback(deletetoken)
         } else {

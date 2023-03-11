@@ -1,5 +1,14 @@
-import { FormControl, FormLabel, Heading, Input, Select } from "@chakra-ui/react";
+import {
+  FormControl,
+  FormLabel,
+  Heading,
+  Input,
+  Select,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import React from "react";
+import { FilePondComponent } from "../FilePondComponent";
 
 export default function Form5Employee(props) {
   //     Resume { pdf }
@@ -10,7 +19,7 @@ export default function Form5Employee(props) {
   //     Field
   //     City.
   //         Pincode.
-var cities = props.cities
+  var cities = props.cities;
   return (
     <>
       <Heading
@@ -45,7 +54,7 @@ var cities = props.cities
               color: "gray.50",
             }}
           >
-            Based out of
+            City
           </FormLabel>
 
           <Select
@@ -101,6 +110,17 @@ var cities = props.cities
           />
         </FormControl>
       </div>
+
+      <Stack>
+        <Text> Add resume</Text>
+        <FilePondComponent
+          profilePic={props.profilePic}
+          deleteLogic={props.deleteLogic}
+          acceptedFileType={["application/pdf"]}
+          setLogic={props.setLogic}
+          allowMultiple={false}
+        />
+      </Stack>
     </>
   );
 }
