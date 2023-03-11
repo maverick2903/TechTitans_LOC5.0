@@ -1,41 +1,38 @@
-import { useEffect } from 'react'
-import { Outlet, useNavigate, useOutletContext } from 'react-router-dom';
+import { useEffect } from "react";
+import { Outlet, useNavigate, useOutletContext } from "react-router-dom";
 
 export default function AuthLayout() {
-
-  const [auth, setAuth] = useOutletContext()
+  const [auth, setAuth] = useOutletContext();
   const navigate = useNavigate();
 
   const getAuth = async () => {
     const resp = await fetch("http://localhost:5000/user/getAuth", {
       method: "GET",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      credentials: "include"
-    })
+      credentials: "include",
+    });
 
-    const respInJSON = await resp.json()
+    const respInJSON = await resp.json();
+    console.log(respInJSON);
     if (resp.status == 200) {
-      setAuth(respInJSON)
-      console.log(respInJSON.role)
+      setAuth(respInJSON);
       if (respInJSON.role == "Employee") {
-        navigate("employee")
+        navigate("employee");
       } else if (respInJSON.role == "Recruiter") {
-        navigate("recruiter")
+        navigate("recruiter");
       } else {
-        navigate("admin")
+        navigate("admin");
       }
     } else {
-      navigate('/login')
+      navigate("/login");
     }
-  }
+  };
 
   useEffect(() => {
-    getAuth()
-  }, [])
+    getAuth();
+  }, []);
 
-  return (
-    <Outlet context={[auth, setAuth]} />
-  )
+  return <Outlet context={[auth, setAuth]} />;
 }

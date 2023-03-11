@@ -25,7 +25,7 @@ const hrefmap = {
   "About us": "about",
   "Contact us": "contact",
   "Sign Up": "signup",
-  "Sign in": "login",
+  "Sign In": "login",
 };
 
 const Nav = ({ children }) => (
@@ -139,6 +139,9 @@ export default function Navbar(props) {
                   <br />
                   <MenuDivider />
 
+                  <MenuItem as='a' href='/dashboard'>
+                    Dashboard
+                  </MenuItem>
                   <MenuItem>Account Settings</MenuItem>
                   <MenuItem onClick={dealingWithLogout}>Logout</MenuItem>
                 </MenuList>
