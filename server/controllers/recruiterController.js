@@ -25,6 +25,7 @@ const addJobPosting=async(req,res)=>{
         job.jobPincode=user.recPincode
 
         await job.save()
+        res.status(200).json({message:'Job Added'})
     } catch (error) {
         console.log(error)
         return res.status(500).json({ message: error })
