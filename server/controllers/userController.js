@@ -11,7 +11,7 @@ const Feedback = require('../models/feedback')
 const Employee=require('../models/employeeSchema')
 const Recruiter=require('../models/recruiterSchema')
 const nodemailer = require('nodemailer')
-const sendEmail=require('../utils/functions')
+const {sendEmail}=require('../utils/functions')
 const getAuth = async (req, res) => {
     try {
         console.log('sss')
@@ -42,18 +42,19 @@ const newUser = async (req, res) => {
         const user = new User({ username, password, email, country,role, socials, phoneNumber: phone, name, profilePic });
         await user.save();
 
-        if(role==='employee')
+        if(role==='Employee')
         {
-            pdfParse(req.files.pdfFile).then(result=>{
+            /*pdfParse(req.files.pdfFile).then(result=>{
                 resumeText=result
-            })
-            const employee=new Employee({resume,skills,yearsOfExp,description,highestEducation,field,city,pincode,laidOff,laidOffDoc,resumeText })
-            
+            })*/
+            const employee=new Employee({resume,skills,yearsOfExp,description,highestEducation,field,city,pincode,laidOff,laidOffDoc})
+            employee.username=username
             await employee.save()
         }
-        else if(role==='recruiter')
+        else if(role==='Recruiter')
         {
             const recruiter=new Recruiter({companyName,basedOutOff,recPincode})
+            recruiter.username=username
             await recruiter.save()
         }
         await sendEmail({emailId:email,subject:'Signed up',message:'Verification mail for your account on JobSearch'})
@@ -80,7 +81,7 @@ const loginUser = async (req, res) => {
                     sameSite: "none",
                     secure: true,
                 })
-                return res.status(200).json({ message: "Login successful",role:userToBeChecked.role })
+                return res.status(200).json({ message: "Login successful" })
             } else {
                 return res.status(400).json({ message: "password did not match" })
             }
@@ -96,7 +97,8 @@ const loginUser = async (req, res) => {
                         sameSite: "none",
                         secure: true
                     })
-                    await sendEmail({emailId:email,subject:'Logged In',message:'Verification mail for login on JobSearch'})
+                    
+                    await sendEmail({emailId:emailToBeChecked.email,subject:'Logged In',message:'Verification mail for login on JobSearch'})
                     return res.status(200).json({ message: "Login successful" })
                 } else {
                     return res.status(400).json({ message: "password did not match" })

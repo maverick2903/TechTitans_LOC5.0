@@ -2,17 +2,13 @@ import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import {
   Button,
   Checkbox,
-  Flex,
   FormControl,
   FormLabel,
   Heading,
   Input,
   Link,
-  Stack,
   Image,
-  VStack,
   Text,
-  Container,
   InputGroup,
   InputRightElement,
   useColorModeValue,
@@ -22,7 +18,7 @@ import {
   GridItem,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { NavLink, useNavigate, useOutletContext } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function SplitLoginPage() {
   const toast = useToast();
@@ -47,8 +43,9 @@ export default function SplitLoginPage() {
       body: JSON.stringify(data),
     });
 
-    if (response.status == 200) {
-      navigate("/");
+    if (response.status === 200) {
+      console.log(await response.json());
+      navigate("/dashboard");
       toast({
         title: "Login Successful!",
         status: "success",
@@ -77,11 +74,11 @@ export default function SplitLoginPage() {
   };
 
   return (
-    <Grid templateColumns='2fr 1fr 1fr'>
+    <Grid templateColumns='2fr 1fr 1fr' height='89.5vh' overflow='hidden'>
       <GridItem gridColumn='1 / -2' gridRow={1}>
         <Image
           alt='Cover image'
-          objectFit='contain'
+          objectFit='cover'
           height='100%'
           width='100%'
           src='https://media.istockphoto.com/id/951514270/photo/glad-to-work-with-you.jpg?s=612x612&w=0&k=20&c=cW2NaMJUDQpOxbxsMu314AeeDt76o-Nv4CQCzQXsQkw= '

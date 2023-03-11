@@ -29,10 +29,40 @@ const jobSchema=new mongoose.Schema({
         type:Boolean,
         default:false
     },
+    workLocation:{
+        type:String,
+        enum:['workFromHome','Office']
+    },
     users:[{
         type:mongoose.Schema.Types.ObjectId
-    }]
+    }],
+    salary:{
+        type:Number
+    },
+    jobPincode:{
+        type:Number
+    },
+    location: {
+        type: {
+            type: String,
+            enum: ["Point"],
+        },
+        coordinates: {
+            type: [Number],
+            index: "2dsphere",
+        },
+        formattedAddress: String,
+    }
 },{timestamps:true})
+
+jobSchema.pre("save", async function (next) {
+    const loc = await geocoder.geocode(this.jobPincode);
+    this.location = {
+        type: "Point",
+        coordinates: [loc[0].latitude, loc[0].longitude],
+    };
+    next();
+});
 
 const Job = mongoose.model('Job', jobSchema)
 module.exports = Job

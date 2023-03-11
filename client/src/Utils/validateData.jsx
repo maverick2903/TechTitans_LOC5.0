@@ -3,7 +3,7 @@
 // else the error message will be shown in the respective attribute (if an attribute has no error its "")
 // hence you can use this to display the error in UI using error element easily
 
-export const ValidateData = async (data) => {
+export const ValidateData = async data => {
   console.log(data);
   const dataToBeReturned = { ...data, noErrors: true };
   if ("username" in data) {
