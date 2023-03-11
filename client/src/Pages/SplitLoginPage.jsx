@@ -17,6 +17,9 @@ import {
   InputRightElement,
   useColorModeValue,
   useToast,
+  Box,
+  Grid,
+  GridItem,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { NavLink, useNavigate, useOutletContext } from "react-router-dom";
@@ -27,13 +30,13 @@ export default function SplitLoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [data, setData] = useState({ email: "", password: "" });
   const navigate = useNavigate();
-  const setFormData = (e) => {
+  const setFormData = e => {
     setData({ ...data, [e.target.id]: e.target.value });
   };
 
   console.log(data);
 
-  const dealingWithLoginPageSubmission = async (e) => {
+  const dealingWithLoginPageSubmission = async e => {
     e.preventDefault();
     const response = await fetch("http://localhost:5000/user/loginUser", {
       method: "POST",
@@ -74,121 +77,105 @@ export default function SplitLoginPage() {
   };
 
   return (
-    <>
-      <Stack
-        minH="92vh"
-        direction={{ base: "column", md: "row" }}
-        paddingBottom="20px"
-      >
-        <Flex flex={2}>
-          <Image
-            alt="Cover image"
-            objectFit="cover"
-            src="https://bit.ly/2k1H1t6"
-          />
-        </Flex>
+    <Grid templateColumns='2fr 1fr 1fr'>
+      <GridItem gridColumn='1 / -2' gridRow={1}>
+        <Image
+          alt='Cover image'
+          objectFit='contain'
+          height='100%'
+          width='100%'
+          src='https://media.istockphoto.com/id/951514270/photo/glad-to-work-with-you.jpg?s=612x612&w=0&k=20&c=cW2NaMJUDQpOxbxsMu314AeeDt76o-Nv4CQCzQXsQkw= '
+        />
+      </GridItem>
 
-        <Flex p={8} flex={1} align="center" justify="center">
-          <Stack spacing={4}>
-            <Stack align="center">
-              <Heading fontSize={"4xl"}>Sign in to your account</Heading>
-              <Text fontSize={"lg"} color={"gray.600"}>
+      <GridItem
+        gridColumn='-3 / -1'
+        gridRow={1}
+        placeSelf='center'
+        position='relative'
+        rounded='lg'
+        boxShadow='2xl'
+        isolation='isolate'
+        overflow='hidden'>
+        <Box
+          bg={useColorModeValue("white", "gray.700")}
+          opacity={0.95}
+          position='absolute'
+          inset='0'
+          zIndex={-1}></Box>
+        <Grid
+          gridAutoRows='auto'
+          gap='1.5rem'
+          as='form'
+          noValidate
+          onSubmit={dealingWithLoginPageSubmission}
+          p={{ base: 3, sm: "2em" }}>
+          <GridItem>
+            <Box textAlign='center'>
+              <Heading fontSize={"3xl"}>Sign in to your account</Heading>
+              <Text fontSize={"lg"} color={useColorModeValue("black", "gray.300")}>
                 to enjoy all of our cool{" "}
-                <Link href="about" color={"blue.400"}>
+                <Link href='about' color={"blue.400"}>
                   features
-                </Link>{" "}
-                😎
+                </Link>
               </Text>
-            </Stack>
+            </Box>
+          </GridItem>
 
-            <VStack
-              as="form"
-              spacing={8}
-              noValidate
-              boxSize={{ base: "xs", sm: "sm", md: "md" }}
-              h="max-content !important"
-              bg={useColorModeValue("white", "gray.700")}
-              rounded="lg"
-              onSubmit={dealingWithLoginPageSubmission}
-              boxShadow="2xl"
-              p={{ base: 5, sm: 10 }}
-            >
-              <VStack spacing={4} w="113%">
-                <Container w={"100%"}>
-                  <div className="parent">
-                    <FormControl id="email" isRequired>
-                      <FormLabel>Email / Username</FormLabel>
-                      <Input
-                        rounded="md"
-                        onChange={setFormData}
-                        type="email"
-                        value={data.username}
-                      />
-                    </FormControl>
-                  </div>
-                </Container>
+          <GridItem display='grid' gap='1rem'>
+            <FormControl id='email' isRequired className='form-input'>
+              <FormLabel>Email/Username</FormLabel>
+              <Input rounded='md' onChange={setFormData} type='email' value={data.username} />
+            </FormControl>
 
-                <Container w={"100%"}>
-                  <div className="parent">
-                    <FormControl id="password" isRequired>
-                      <FormLabel>Password</FormLabel>
-                      <InputGroup>
-                        <Input
-                          onChange={setFormData}
-                          type={showPassword ? "text" : "password"}
-                          value={data.password}
-                        />
-                        <InputRightElement h={"full"}>
-                          <Button
-                            variant={"ghost"}
-                            onClick={() =>
-                              setShowPassword((showPassword) => !showPassword)
-                            }
-                          >
-                            {showPassword ? <ViewIcon /> : <ViewOffIcon />}
-                          </Button>
-                        </InputRightElement>
-                      </InputGroup>
-                    </FormControl>
-                  </div>
-                </Container>
-              </VStack>
-              <VStack w="100%">
-                <Stack
-                  direction="row"
-                  justify="space-between"
-                  w="100%"
-                  mb={"10px"}
-                >
-                  <Checkbox colorScheme="green" size="md">
-                    Remember me
-                  </Checkbox>
-                  <Link
-                    as={NavLink}
-                    to="/forgotpassword"
-                    state={{ email: data.email, from: 1 }}
-                    fontSize={{ base: "md", sm: "md" }}
-                  >
-                    Forgot password?
-                  </Link>
-                </Stack>
-                <Button
-                  bg="green.400"
-                  color="white"
-                  _hover={{
-                    bg: "green.600",
-                  }}
-                  rounded="md"
-                  w="100%"
-                  type="submit"
-                >
-                  Sign in
-                </Button>
-              </VStack>
-            </VStack>
-          </Stack>
-        </Flex>
-      </Stack>
-    </>
+            <FormControl id='password' isRequired className='form-input'>
+              <FormLabel>Password</FormLabel>
+              <InputGroup>
+                <Input
+                  onChange={setFormData}
+                  type={showPassword ? "text" : "password"}
+                  value={data.password}
+                />
+                <InputRightElement h={"full"}>
+                  <Button
+                    variant={"ghost"}
+                    onClick={() => setShowPassword(showPassword => !showPassword)}>
+                    {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+            </FormControl>
+          </GridItem>
+
+          <GridItem
+            display='grid'
+            gridTemplateColumns='repeat(2,1fr)'
+            placeItems='center'
+            gap='1rem 0'>
+            <Checkbox colorScheme='green' size='md'>
+              Remember me
+            </Checkbox>
+            <Link
+              as={NavLink}
+              to='/forgotpassword'
+              state={{ email: data.email, from: 1 }}
+              fontSize={{ base: "md", sm: "md" }}>
+              Forgot password?
+            </Link>
+            <Button
+              bg='green.400'
+              color='white'
+              _hover={{
+                bg: "green.600",
+              }}
+              rounded='md'
+              type='submit'
+              gridColumn='span 2'>
+              Sign in
+            </Button>
+          </GridItem>
+        </Grid>
+      </GridItem>
+    </Grid>
   );
 }
