@@ -82,7 +82,7 @@ export default function SplitLoginPage() {
           objectFit='cover'
           height='100%'
           width='100%'
-          src='https://media.istockphoto.com/id/951514270/photo/glad-to-work-with-you.jpg?s=612x612&w=0&k=20&c=cW2NaMJUDQpOxbxsMu314AeeDt76o-Nv4CQCzQXsQkw= '
+          src='https://wallpaperaccess.com/full/2484157.jpg'
         />
       </GridItem>
 
@@ -113,7 +113,7 @@ export default function SplitLoginPage() {
               <Heading fontSize={"3xl"}>Sign in to your account</Heading>
               <Text fontSize={"lg"} color={useColorModeValue("black", "gray.300")}>
                 to enjoy all of our cool{" "}
-                <Link href='about' color={"blue.400"}>
+                <Link href='about' color={"#af99ff"}>
                   features
                 </Link>
               </Text>
@@ -123,7 +123,13 @@ export default function SplitLoginPage() {
           <GridItem display='grid' gap='1rem'>
             <FormControl id='email' isRequired className='form-input'>
               <FormLabel>Email/Username</FormLabel>
-              <Input rounded='md' onChange={setFormData} type='email' value={data.username} />
+              <Input
+                rounded='md'
+                onChange={setFormData}
+                type='email'
+                value={data.username}
+                focusBorderColor='#af99ff'
+              />
             </FormControl>
 
             <FormControl id='password' isRequired className='form-input'>
@@ -133,6 +139,7 @@ export default function SplitLoginPage() {
                   onChange={setFormData}
                   type={showPassword ? "text" : "password"}
                   value={data.password}
+                  focusBorderColor='#af99ff'
                 />
                 <InputRightElement h={"full"}>
                   <Button
@@ -168,6 +175,7 @@ export default function SplitLoginPage() {
               }}
               rounded='md'
               type='submit'
+              width='100%'
               gridColumn='span 2'>
               Sign in
             </Button>

@@ -17,49 +17,51 @@ export default function Form3(props) {
       <Heading
         textAlign={"center"}
         fontSize={{ sm: "2xl", md: "4xl", lg: "5xl", xl: "5xl" }}
-        mb="5%"
-      >
+        mb='5%'>
         Social Handles
       </Heading>
       <SimpleGrid columns={1} spacing={6}>
         <FormControl>
           <FormLabel
-            fontSize="sm"
-            fontWeight="md"
-            color="gray.700"
+            fontSize='sm'
+            fontWeight='md'
+            color='gray.700'
             _dark={{
               color: "gray.50",
-            }}
-          >
+            }}>
             Social media
           </FormLabel>
-          <InputGroup size="sm">
+          <InputGroup size='sm'>
             <InputLeftAddon
-              bg="gray.50"
+              bg='gray.50'
               _dark={{
                 bg: "gray.800",
               }}
-              color="gray.500"
-              rounded="md"
-            >
+              color='gray.500'
+              rounded='md'>
               http://
             </InputLeftAddon>
             <Input
               value={props.data.socials}
               onChange={props.setFormData}
-              id="socials"
-              placeholder="www.linkedin.com"
-              rounded="md"
+              id='socials'
+              placeholder='www.linkedin.com'
+              rounded='md'
+              focusBorderColor='#af99ff'
             />
           </InputGroup>
         </FormControl>
 
-                <Stack>
-                    <Text> Add profile picture</Text>
-                    <FilePondComponent  deleteLogic={props.deleteLogic} acceptedFileType={["image/*"]} setLogic={props.setLogic} allowMultiple={false} />
-                </Stack>
-
-            </SimpleGrid>
-        </>
-    );
-};
+        <Stack>
+          <Text> Add profile picture</Text>
+          <FilePondComponent
+            deleteLogic={props.deleteLogic}
+            acceptedFileType={["image/*"]}
+            setLogic={props.setLogic}
+            allowMultiple={false}
+          />
+        </Stack>
+      </SimpleGrid>
+    </>
+  );
+}

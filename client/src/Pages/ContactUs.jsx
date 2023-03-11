@@ -20,7 +20,7 @@ import {
 import { GoLocation } from "react-icons/go";
 import { BsPhone } from "react-icons/bs";
 import { HiOutlineMail } from "react-icons/hi";
-import { ValidateData } from "../Utils/validateData";
+import { ValidateData } from "../Utils/ValidateData";
 
 const contactOptions = [
   {

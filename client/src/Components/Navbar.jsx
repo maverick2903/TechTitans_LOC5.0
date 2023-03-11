@@ -19,7 +19,7 @@ import {
   Spacer,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const hrefmap = {
   "About us": "about",
@@ -37,6 +37,7 @@ const Nav = ({ children }) => (
     _hover={{
       textDecoration: "none",
       fontWeight: "bold",
+      color: "#af99ff",
       bg: useColorModeValue("gray.200", "gray.700"),
     }}
     as={NavLink}
@@ -60,7 +61,7 @@ export default function Navbar(props) {
   const { colorMode, toggleColorMode } = useColorMode();
 
   const dealingWithLogout = async () => {
-    const res = await fetch("http://localhost:5000/user/logout", {
+    await fetch("http://localhost:5000/user/logout", {
       method: "GET",
       credentials: "include",
     });
@@ -69,7 +70,12 @@ export default function Navbar(props) {
 
   return (
     <>
-      <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
+      <Box
+        bg={useColorModeValue("gray.100", "gray.900")}
+        px={4}
+        position='sticky'
+        top='0'
+        zIndex={1}>
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <Box
             mr='30px'

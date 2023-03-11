@@ -9,7 +9,7 @@ export default function RootLayout() {
   return (
     <>
       <Navbar Auth={auth} setAuth={setAuth} />
-      <main>
+      <main className='main-content'>
         <Outlet context={[auth, setAuth]} />
       </main>
       {/* <Footer /> */}

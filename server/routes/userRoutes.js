@@ -12,6 +12,7 @@ const {
     getAuth,
     newProfilePic,
     updatePass,
+    searchedUser
 }=require('../controllers/userController');
 
 
@@ -26,5 +27,5 @@ router.post('/verifyOtp',verifyOtp)
 router.post('/newPass',newPass)
 router.patch('/newProfilePic',authenticate,newProfilePic)
 router.patch('/updatePass',authenticate,updatePass)
-
+router.get('/searchedUser',authenticate,searchedUser)
 module.exports=router
