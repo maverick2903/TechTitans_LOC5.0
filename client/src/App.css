@@ -14,11 +14,13 @@
 
 body {
   min-height: 100vh;
+  scroll-behavior: smooth;
 }
 
 #root {
   display: grid;
   grid-template-rows: auto 1fr;
+  scroll-behavior: smooth;
 }
 
 footer {
@@ -49,7 +51,7 @@ nav a.active {
 
 main.main-content {
   display: grid;
-  grid-auto-rows: 1fr;
+  /* grid-auto-rows: 1fr; */
   overflow-x: hidden;
   height: 100%;
 }
@@ -60,15 +62,70 @@ main.main-content {
   height: 90vh;
   color: #af99ff;
   position: relative;
+  grid-template-columns: auto 1fr;
+  place-items: center;
 }
 
-.hero > * {
-  grid-row: 1;
-  grid-column: 1;
+#Puzzles {
+  height: 90%;
+  /* outline: 2px solid hotpink; */
+  --duration: 500ms;
+  --delay: 200ms;
+  --offset: 200ms;
 }
 
+.piece-1 {
+  translate: 37.5% 12.5%;
+  animation: makePuzzle var(--duration) ease-out calc(var(--delay) * 1) forwards;
+}
+.piece-2 {
+  translate: 12.5% 12.5%;
+  animation: makePuzzle var(--duration) ease-out calc(var(--delay) * 2) forwards;
+}
+.piece-3 {
+  translate: 37.5% 37.5%;
+  animation: makePuzzle var(--duration) ease-out calc(var(--delay) * 3) forwards;
+}
+.piece-4 {
+  translate: 12.5% 37.5%;
+  animation: makePuzzle var(--duration) ease-out calc(var(--delay) * 4) forwards;
+}
+
+@keyframes makePuzzle {
+  to {
+    translate: 25% 25%;
+  }
+}
+
+.puzzle-text-1 {
+  translate: -64px -64px;
+  opacity: 0;
+  animation: fadePuzzleText var(--duration) ease-out calc(var(--delay) * 1 + var(--offset)) forwards;
+}
+.puzzle-text-2 {
+  translate: 64px -64px;
+  opacity: 0;
+  animation: fadePuzzleText var(--duration) ease-out calc(var(--delay) * 2 + var(--offset)) forwards;
+}
+.puzzle-text-3 {
+  translate: 64px 64px;
+  opacity: 0;
+  animation: fadePuzzleText var(--duration) ease-out calc(var(--delay) * 3 + var(--offset)) forwards;
+}
+.puzzle-text-4 {
+  translate: -64px 64px;
+  opacity: 0;
+  animation: fadePuzzleText var(--duration) ease-out calc(var(--delay) * 4 + var(--offset)) forwards;
+}
+
+@keyframes fadePuzzleText {
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
 .hero-content {
-  margin: auto auto auto 5rem;
+  margin-left: 3rem;
 }
 
 .hero-header {
@@ -98,7 +155,7 @@ main.main-content {
   height: calc(100% - 4rem);
 }
 
-section {
+section.hook-line {
   display: grid;
   place-items: center;
   padding: 5rem;
@@ -169,10 +226,97 @@ section {
   }
 }
 
-/* .employee-grid {
-  grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr));
-} */
-/* 
-p {
-  background: hsla(253, 100%, 80%, 0.7);
-} */
+#stepPath {
+  fill: none;
+  stroke: white;
+  margin: 0 2rem;
+
+  --duration: 1000ms;
+  --delay: 250ms;
+}
+
+.steps {
+  stroke-width: 4px;
+  stroke: #af99ff;
+  stroke-dasharray: 0 100;
+}
+.aos-animate .steps {
+  animation: StepPath-1 var(--duration) ease-in-out forwards
+      calc(var(--duration) * 0 + var(--delay) * 0),
+    StepPath-2 var(--duration) ease-in-out forwards calc(var(--duration) * 1 + var(--delay) * 1),
+    StepPath-3 var(--duration) ease-in-out forwards calc(var(--duration) * 2 + var(--delay) * 2),
+    StepPath-4 var(--duration) ease-in-out forwards calc(var(--duration) * 3 + var(--delay) * 3);
+}
+.path-point {
+  fill: #1a202c;
+  stroke: #af99ff;
+}
+
+.aos-animate :is(.path-text-1, .path-point-1) {
+  opacity: 0;
+  animation: fadeIn var(--delay) ease forwards calc(var(--duration) * 0 + var(--delay) * 0);
+}
+.aos-animate :is(.path-text-2, .path-point-2, .path-point-3) {
+  opacity: 0;
+  animation: fadeIn var(--delay) ease forwards calc(var(--duration) * 1 + var(--delay) * 1);
+}
+.aos-animate :is(.path-text-3, .path-point-4, .path-point-5) {
+  opacity: 0;
+  animation: fadeIn var(--delay) ease forwards calc(var(--duration) * 2 + var(--delay) * 2);
+}
+.aos-animate :is(.path-text-4, .path-point-6) {
+  opacity: 0;
+  animation: fadeIn var(--delay) ease forwards calc(var(--duration) * 3 + var(--delay) * 3);
+}
+.aos-animate :is(.path-text-5, .path-point-7) {
+  opacity: 0;
+  animation: fadeIn var(--delay) ease forwards calc(var(--duration) * 4 + var(--delay) * 4);
+}
+
+@keyframes StepPath-1 {
+  from {
+    stroke-dasharray: 0 100;
+  }
+  to {
+    stroke-dasharray: 25 75;
+  }
+}
+@keyframes StepPath-2 {
+  from {
+    stroke-dasharray: 25 75;
+  }
+  to {
+    stroke-dasharray: 50 50;
+  }
+}
+@keyframes StepPath-3 {
+  from {
+    stroke-dasharray: 50 50;
+  }
+  to {
+    stroke-dasharray: 75 25;
+  }
+}
+@keyframes StepPath-4 {
+  from {
+    stroke-dasharray: 75 25;
+  }
+  to {
+    stroke-dasharray: 100 0;
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.reason-card {
+  display: grid;
+  aspect-ratio: 1 / 1;
+  place-items: center;
+  justify-content: center;
+  padding: 1em;
+  background-color: #b5d0ff;
+}
