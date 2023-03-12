@@ -11,7 +11,7 @@ export default function UserListItem({user,handleFunction}) {
       color: "white",
     }}
     w="100%"
-    d="flex"
+    display="flex"
     alignItems="center"
     color="black"
     px={3}
@@ -24,7 +24,7 @@ export default function UserListItem({user,handleFunction}) {
       size="sm"
       cursor="pointer"
       name={user.name}
-      src={user.pic}
+      src={user.profilePic}
     />
     <Box>
       <Text>{user.name}</Text>

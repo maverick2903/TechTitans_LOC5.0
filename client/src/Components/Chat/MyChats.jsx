@@ -3,17 +3,26 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { ChatState } from "../../Context/chatProvider";
 import ChatLoading from "./ChatLoading";
-import { getSender } from "../../Config/ChatLogics"
+import { getSender } from "../../Config/ChatLogics";
+import axios from "axios";
 
-export default function MyChats({fetchAgain}) {
+export default function MyChats({ fetchAgain }) {
   const [loggedUser, setLoggedUser] = useState();
   const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
   const toast = useToast();
 
   const fetchChats = async () => {
     try {
-      //   const { data } = await axios.get("/api/chat", config);
-      //   setChats(data);
+      //1
+      const { data } = await axios.get(
+        "http://localhost:5000/chat/fetchChats",
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(data.results);
+      setChats(data.results);
+      
     } catch (error) {
       toast({
         title: "Error Occured!",
@@ -28,7 +37,7 @@ export default function MyChats({fetchAgain}) {
   useEffect(() => {
     setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
     fetchChats();
-  }, [fetchAgain]);
+  }, []);
 
   return (
     <Box
@@ -47,7 +56,7 @@ export default function MyChats({fetchAgain}) {
         fontSize={{ base: "28px", md: "30px" }}
         fontFamily="Work sans"
         display="flex"
-        _dark={{color:"black"}}
+        _dark={{ color: "black" }}
         w="100%"
         justifyContent="space-between"
         alignItems="center"

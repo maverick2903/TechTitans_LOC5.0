@@ -24,25 +24,24 @@ import Loader from "./Components/Loader";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element={<RootLayout />}>
+    <Route path="/" element={<RootLayout />}>
       <Route index element={<Home />} />
+      <Route path="chat" element={<ChatPage />} />
       <Route element={<AuthLayout />}>
-        <Route path='dashboard' element={<Loader />} />
-        <Route path='employee' element={<EmployeePage />} />
-        <Route path='recruiter' element={<RecruiterPage />} />
-        <Route path='admin' element={<AdminPage />} />
-        <Route path="/employee/chat" element={< ChatPage/>} />
-        <Route path="/recruiter/chat" element={< ChatPage/>} />
+        <Route path="dashboard" element={<Loader />} />
+        <Route path="employee" element={<EmployeePage />} />
+        <Route path="recruiter" element={<RecruiterPage />} />
+        <Route path="admin" element={<AdminPage />} />
       </Route>
 
-      <Route path='login' element={<SplitLoginPage />} />
-      <Route path='about' element={<AboutUs />} />
-      <Route path='contact' element={<ContactUs />} />
-      <Route path='signup' element={<SignUp />} />
-      <Route path='abc' element={<LoginPage />} />
-      <Route path='forgotpassword' element={<ForgotPassword />} />
+      <Route path="login" element={<SplitLoginPage />} />
+      <Route path="about" element={<AboutUs />} />
+      <Route path="contact" element={<ContactUs />} />
+      <Route path="signup" element={<SignUp />} />
+      <Route path="abc" element={<LoginPage />} />
+      <Route path="forgotpassword" element={<ForgotPassword />} />
 
-      <Route path='*' element={<ErrorPage />} />
+      <Route path="*" element={<ErrorPage />} />
     </Route>
   )
 );

@@ -45,8 +45,7 @@ export default function SplitLoginPage() {
 
     if (response.status === 200) {
       console.log(await response.json());
-      
-      navigate("/dashboard");
+      localStorage.setItem("userInfo", JSON.stringify())
       toast({
         title: "Login Successful!",
         status: "success",
@@ -54,6 +53,7 @@ export default function SplitLoginPage() {
         autoClose: 300,
         position: "bottom-right",
       });
+      navigate("/dashboard");
     } else if (data.email === "" || data.password === "") {
       toast({
         title: "Field(s) cannot be empty!",
