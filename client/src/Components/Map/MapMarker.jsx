@@ -1,21 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { useOutletContext } from "react-router-dom";
 
-function MapMarker({ coordinates, companyName, centerLocation }) {
-  /*   const [coordinates, setCoordinates] = useState([
-    [51.505, -0.09],
-    [51.507, -0.12],
-    [51.51, -0.1],
-  ]); */
+function MapMarker() {
+  const [auth] = useOutletContext();
   const [mapData, setmapData] = useState([]);
   console.log(mapData);
   useEffect(() => {
-    setmapData([{ coordinates: coordinates, companyName: companyName }]);
+    setmapData([]);
+    mapFunction();
   }, []);
 
+  const mapFunction = async () => {
+    const resp = await fetch("http://localhost:5000/job/nearByJobs", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+    const data = await resp.json();
+    setmapData([data.returnData]);
+    console.log(mapData);
+  };
+
+  console.log(mapData.companyLocation);
   return (
     <MapContainer
-      center={centerLocation}
+      center={[19.16155, 72.85614]}
       zoom={13}
       scrollWheelZoom={true}
       style={{ height: "400px", width: "100%" }}
@@ -24,14 +36,16 @@ function MapMarker({ coordinates, companyName, centerLocation }) {
         attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {mapData.map((data, index) => (
-        <Marker key={index} position={data.coordinates}>
-          {console.log(data)}
+      {mapData.map((data, index) => 
+
+          {mapData[index] && (<Marker key={index} position={data.companyLocation}>
+          {console.log(data.companyLocation)}
           <Popup>
             {data.companyName} <br />
           </Popup>
-        </Marker>
-      ))}
+        </Marker>)}  
+
+      )}
     </MapContainer>
   );
 }
