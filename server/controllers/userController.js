@@ -2,6 +2,8 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const app = express();
+const fs=require('fs')
+const pdfparse=require('pdf-parse')        
 app.use(express.json());
 const fileUpload = require("express-fileupload");
 const pdfParse = require("pdf-parse");
@@ -79,9 +81,10 @@ const newUser = async (req, res) => {
     const recPincode = pincode;
 
     if (role === "Employee") {
-      /*pdfParse(req.files.pdfFile).then(result=>{
-                resumeText=result
-            })*/
+        const pdffile=fs.readFileSync('uploads/aman_resume.pdf')
+        pdfparse(pdffile).then(function(data){
+            console.log(data.text)
+        })
       const employee = new Employee({
         resume,
         skills,
