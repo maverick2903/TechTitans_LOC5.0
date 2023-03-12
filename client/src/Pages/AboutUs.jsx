@@ -17,11 +17,11 @@ export default function AboutUs() {
   return (
     <>
 
-      <Flex justify="center" mt={'140px'} >
+      <Flex justify="center" mt={'140px'}  textAlign='center'>
         <Text fontSize={'xl'} lineHeight={'tall'}>
           This website was made by 4 engineering undergraduates with the vision of connecting workers with recruiters.
           The goal was to make it easier for employees to display their skills and at the same time for recruiters to hire.
-          We have made a very unique and innovative UI that captivates the users and puts trust in our website 
+          We have made a very unique and innovative UI that captivates the users and puts trust in our website.
 
         </Text>
       </Flex>
