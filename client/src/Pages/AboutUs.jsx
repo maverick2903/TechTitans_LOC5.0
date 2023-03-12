@@ -17,13 +17,16 @@ export default function AboutUs() {
   return (
     <>
 
-      <Flex justify="center" mt={10} mb={10}>
-        <Text fontSize={'lg'}>
-          This website was made by x engineering undergraduates with the vision of ...
+      <Flex justify="center" mt={'140px'} >
+        <Text fontSize={'xl'} lineHeight={'tall'}>
+          This website was made by 4 engineering undergraduates with the vision of connecting workers with recruiters.
+          The goal was to make it easier for employees to display their skills and at the same time for recruiters to hire.
+          We have made a very unique and innovative UI that captivates the users and puts trust in our website 
+
         </Text>
       </Flex>
 
-      <Flex justify="center" mt={7} >
+      <Flex justify="center"  >
         <chakra.h3 fontSize="3xl" fontWeight="bold" mb={3}>
           Testimonials
         </chakra.h3>

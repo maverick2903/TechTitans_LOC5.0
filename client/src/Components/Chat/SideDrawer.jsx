@@ -41,16 +41,19 @@ export default function SideDrawer() {
   const accessChat = async (userId) => {
     try {
       setLoadingChat(true);
-
-      const {data} = await fetch(`/user/searchedUser?search=${search}`,{
-        method:"GET",
-        credentials:"include"
+      //0
+      const {data} = await axios.post("http://localhost:5000/chat/accessChat",{userId} , {
+        withCredentials:true
       })
+      console.log(data)
+
+      if(!chats.find((c)=>c._id==data._id)) setChats([data,...chats])
 
       setSelectedChat(data)
       setLoadingChat(false)
       onclose();
     } catch (err) {
+      console.log(err)
       toast({
         title: "Error fetching the chat",
         description: err.message,
@@ -73,25 +76,18 @@ export default function SideDrawer() {
       });
       return;
     }
-
     try {
       setLoading(true);
-
-      //{data} ko lekar ao
-
-      // setLoading(false)
-      // setSearchResult(data)
+      const { data } = await axios.get(
+        `http://localhost:5000/user/searchedUser?search=${search}`,
+        {
+          withCredentials: true,
+        }
+      );
+      setLoading(false);
+      setSearchResult(data.users);
     } catch (err) {}
   };
-
-  //   const {
-  //     setSelectedChat,
-  //     user,
-  //     notification,
-  //     setNotification,
-  //     chats,
-  //     setChats,
-  //   } = ChatState();
 
   return (
     <>
@@ -154,18 +150,14 @@ export default function SideDrawer() {
               />
               <Button onClick={handleSearch}>Go</Button>
             </Box>
-            {loading ? (
-              <ChatLoading />
-            ) : (
-              searchResult?.map((user) => (
-                <UserListItem
-                  key={user._id}
-                  user={user}
-                  handleFunction={() => accessChat(user._id)}
+            {loading ? <ChatLoading /> : searchResult?.map((user)=>(
+              <UserListItem key={user._id}
+                user={user}
+                handleFunction={()=>accessChat(user._id)}
                 />
-              ))
-            )}
-           {loadingChat && <Spinner ml="auto" d="flex" />}  
+            ))
+          }
+            {loadingChat && <Spinner ml="auto" d="flex" />}
           </DrawerBody>
         </DrawerContent>
       </Drawer>

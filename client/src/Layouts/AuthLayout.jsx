@@ -18,6 +18,7 @@ export default function AuthLayout() {
     console.log(respInJSON);
     if (resp.status == 200) {
       setAuth(respInJSON);
+      localStorage.setItem("userInfo", JSON.stringify(respInJSON))
       if (respInJSON.role == "Employee") {
         navigate("employee");
       } else if (respInJSON.role == "Recruiter") {

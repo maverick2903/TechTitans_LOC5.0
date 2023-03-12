@@ -28,6 +28,7 @@ import {
   CardHeader,
   CardBody,
   CardFooter,
+  Link,
 } from "@chakra-ui/react";
 
 const RecruiterPage = () => {
@@ -127,6 +128,8 @@ const RecruiterPage = () => {
       bgGradient="linear(to-r, teal.500,green.500)"
       color="white"
     >
+      <Link href="chat"> adasd</Link>
+
       <Box display="flex" alignItems="center" flexDirection="column">
         <Avatar
           name="John Doe"

@@ -54,6 +54,7 @@ const newUser = async (req, res) => {
     var phone = phoneNumberPrefix + " " + phoneNumber;
     console.log(role);
 
+
     const userExist = await User.findOne({ username: username });
     const emailExist = await User.findOne({ email: email });
     if (userExist) {
