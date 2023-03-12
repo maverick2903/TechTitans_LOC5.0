@@ -34,12 +34,9 @@ const jobSchema=new mongoose.Schema({
         enum:['remote','onsite']
     },
     users:[{
-        user:{
-            username:{type:String},
-            name:{type:String},
-            email:{type:String},
-            phoneNumber:{type:Number}
-        }
+        userId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User'}
     }],
     salary:{
         type:Number

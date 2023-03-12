@@ -38,4 +38,17 @@ app.use((req, res, next) => {
     });
 });
 
-app.listen(process.env.PORT, () => console.log(`server listening on port ${process.env.PORT}`));
+const server=app.listen(process.env.PORT, () => console.log(`server listening on port ${process.env.PORT}`));
+
+const io=require('socket.io')(server,{
+    pingTimeout:60000,
+    cors:{
+        origin:'http://localhost:3000'
+    }
+})
+io.on('connection',(socket)=>{
+    console.log('connected to socket.io')
+    socket.on('new job application',(data)=>{
+        socket.brodcast.emit('received notif',data)
+    })    
+})

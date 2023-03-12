@@ -58,11 +58,7 @@ const applyJob = async (req, res) => {
     await Job.findByIdAndUpdate(jobId, {
       $addToSet: {
         users: {
-          //user:{
-          username: req.user.username,
-          name: req.user.name,
-          email: req.user.email,
-          phoneNumber: req.user.phoneNumber,
+          userId:req.user._id,
         },
       },
     });
