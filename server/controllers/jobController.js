@@ -38,7 +38,7 @@ const nearByJobs = async (req, res) => {
         [51.507, -0.12],
         [51.51, -0.1],
       ],
-      companyName: rec.companyName,
+      companyName: ["Facebook", "Microsoft", "Google"],
       employeeLocation,
     };
     return res.json({ returnData });

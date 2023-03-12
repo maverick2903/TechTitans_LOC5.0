@@ -47,22 +47,22 @@ function MyMapComponent() {
       )} */}
       <Marker position={[19.133301, 72.834477]}>
         <Popup>
-          hi <br />
+          Facebook <br />
         </Popup>
       </Marker>
       <Marker position={[19.075341, 72.849682]}>
         <Popup>
-          hi <br />
+          Microsoft <br />
         </Popup>
       </Marker>
       <Marker position={[19.127344, 72.875218]}>
         <Popup>
-          hi <br />
+          Google <br />
         </Popup>
       </Marker>
       <Marker position={[19.142959, 72.891121]}>
         <Popup>
-          hi <br />
+          Amazon <br />
         </Popup>
       </Marker>
     </MapContainer>
