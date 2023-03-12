@@ -36,7 +36,8 @@ const jobSchema=new mongoose.Schema({
     users:[{
         userId:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:'User'}
+        ref:'User'},
+        _id:false
     }],
     salary:{
         type:Number

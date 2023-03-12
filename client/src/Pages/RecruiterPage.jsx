@@ -42,6 +42,22 @@ export function DrawerExample(data) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
   console.log(data.users);
+/*   useEffect(() => {
+    getUserData();
+  }, []); */
+
+  /* const getUserData = async (user) => {
+    const res = await fetch("http://localhost:5000/user/particularUser", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ user }),
+      credentials: "include",
+    });
+    let data = await res.json();
+    console.log(data);
+  }; */
   return (
     <>
       <Button ref={btnRef} colorScheme="teal" onClick={onOpen}>
@@ -60,9 +76,11 @@ export function DrawerExample(data) {
 
           <DrawerBody>
             <Input placeholder="Type here..." />
-            {data.users.map((info,index) => (<Text key={index}>{info._id}</Text>))}
+{/*             {data.users.map((info, index) => (
+              <Text key={index}>{data.users}</Text>
+            ))} */}
           </DrawerBody>
-          
+
           <DrawerFooter>
             <Button variant="outline" mr={3} onClick={onClose}>
               Cancel
@@ -74,7 +92,6 @@ export function DrawerExample(data) {
     </>
   );
 }
-
 
 const RecruiterPage = () => {
   const auth = useOutletContext();
@@ -160,9 +177,9 @@ const RecruiterPage = () => {
     const data = await resp.json();
     console.log(data);
     setAllJobs(data["jobs"]);
-    console.log(allJobs)
+    console.log(allJobs);
   };
-  
+
   console.log(auth.name);
   return (
     <Box
@@ -275,7 +292,7 @@ const RecruiterPage = () => {
                     </Text>
                   </CardBody>
                   <CardFooter>
-                    <DrawerExample {...data}/>
+                    <DrawerExample {...data} />
                   </CardFooter>
                 </Card>
               ))
