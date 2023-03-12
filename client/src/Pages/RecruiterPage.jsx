@@ -42,7 +42,7 @@ export function DrawerExample(data) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
   console.log(data.users);
-/*   useEffect(() => {
+  /*   useEffect(() => {
     getUserData();
   }, []); */
 
@@ -76,7 +76,7 @@ export function DrawerExample(data) {
 
           <DrawerBody>
             <Input placeholder="Type here..." />
-{/*             {data.users.map((info, index) => (
+            {/*             {data.users.map((info, index) => (
               <Text key={index}>{data.users}</Text>
             ))} */}
           </DrawerBody>
@@ -180,7 +180,7 @@ const RecruiterPage = () => {
     console.log(allJobs);
   };
 
-  console.log(auth.name);
+  console.log(auth[0].name);
   return (
     <Box
       // height="100vh"
@@ -195,12 +195,12 @@ const RecruiterPage = () => {
 
       <Box display="flex" alignItems="center" flexDirection="column">
         <Avatar
-          name={auth.name}
+          name={auth[0].name}
           src="https://bit.ly/broken-link"
           size="xl"
           mb={5}
         />
-        <Heading mb={5}>Welcome, {auth.name}</Heading>
+        <Heading mb={5}>Welcome, {auth[0].name}</Heading>
         <Heading as="h1" size="3xl" fontWeight="bold" mb="8">
           Post Your Job Here
         </Heading>
