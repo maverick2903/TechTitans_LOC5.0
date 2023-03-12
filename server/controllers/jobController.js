@@ -23,13 +23,25 @@ const nearByJobs = async (req, res) => {
     const lat = emp.location.coordinates[0];
     const lng = emp.location.coordinates[1];
     const jobs = await Job.find();
-    const filteredJobs = jobs.filter(job => {
+    const filteredJobs = jobs.filter((job) => {
       const distance = calculateDistance(lat, lng, job.lat, job.lng);
-      return distance <= 10;
+      return distance <= 1000;
     });
-
+    const rec = await Recruiter.find({ _id: filteredJobs.recruiterId });
+    console.log(rec);
     // Return the filtered users
-    return res.json({ filteredJobs });
+    const employeeLocation = [lat, lng];
+    const companyLocation = [filteredJobs.lat, filteredJobs.long];
+    const returnData = {
+      companyLocation: [
+        [51.505, -0.09],
+        [51.507, -0.12],
+        [51.51, -0.1],
+      ],
+      companyName: rec.companyName,
+      employeeLocation,
+    };
+    return res.json({ returnData });
   } catch (error) {
     console.log(error);
     return res.status(400).json({ message: "f" });
