@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import { useOutletContext } from "react-router-dom";
 import {
   Box,
   Button,
@@ -29,9 +29,55 @@ import {
   CardBody,
   CardFooter,
   Link,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  DrawerHeader,
+  DrawerBody,
+  DrawerFooter,
 } from "@chakra-ui/react";
 
+export function DrawerExample(data) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const btnRef = React.useRef();
+  console.log(data.users);
+  return (
+    <>
+      <Button ref={btnRef} colorScheme="teal" onClick={onOpen}>
+        View interested applicants
+      </Button>
+      <Drawer
+        isOpen={isOpen}
+        placement="right"
+        onClose={onClose}
+        finalFocusRef={btnRef}
+      >
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerCloseButton />
+          <DrawerHeader>Interested Applicants</DrawerHeader>
+
+          <DrawerBody>
+            <Input placeholder="Type here..." />
+            {data.users.map((info,index) => (<Text key={index}>{info._id}</Text>))}
+          </DrawerBody>
+          
+          <DrawerFooter>
+            <Button variant="outline" mr={3} onClick={onClose}>
+              Cancel
+            </Button>
+            <Button colorScheme="blue">Save</Button>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
+    </>
+  );
+}
+
+
 const RecruiterPage = () => {
+  const auth = useOutletContext();
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [jobData, setJobData] = useState({
@@ -116,8 +162,8 @@ const RecruiterPage = () => {
     setAllJobs(data["jobs"]);
     console.log(allJobs)
   };
-  /* 
-  console.log(allJobs.jobs[0].field); */
+  
+  console.log(auth.name);
   return (
     <Box
       // height="100vh"
@@ -132,12 +178,12 @@ const RecruiterPage = () => {
 
       <Box display="flex" alignItems="center" flexDirection="column">
         <Avatar
-          name="John Doe"
+          name={auth.name}
           src="https://bit.ly/broken-link"
           size="xl"
           mb={5}
         />
-        <Heading mb={5}>Welcome, John Doe</Heading>
+        <Heading mb={5}>Welcome, {auth.name}</Heading>
         <Heading as="h1" size="3xl" fontWeight="bold" mb="8">
           Post Your Job Here
         </Heading>
@@ -156,7 +202,7 @@ const RecruiterPage = () => {
         <Text fontSize="xl" fontWeight="bold" textAlign="center">
           Your Job Listings:
         </Text>
-        <Box >
+        <Box>
           <SimpleGrid
             spacing={4}
             templateColumns="repeat(auto-fill, minmax(20rem, 1fr))"
@@ -186,7 +232,7 @@ const RecruiterPage = () => {
             </Box> */}
             {allJobs ? (
               allJobs.map((data, index) => (
-                <Card >
+                <Card>
                   <Stack alignItems="center">
                     <Text
                       color={"green.500"}
@@ -229,7 +275,7 @@ const RecruiterPage = () => {
                     </Text>
                   </CardBody>
                   <CardFooter>
-                    <Button>View interested applicants</Button>
+                    <DrawerExample {...data}/>
                   </CardFooter>
                 </Card>
               ))
@@ -239,6 +285,7 @@ const RecruiterPage = () => {
           </SimpleGrid>
         </Box>
       </Box>
+
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <form onSubmit={formSubmit} method="POST">
