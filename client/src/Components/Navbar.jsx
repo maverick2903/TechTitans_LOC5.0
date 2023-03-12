@@ -17,6 +17,7 @@ import {
   Stack,
   Center,
   Spacer,
+  Image,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { Navigate, NavLink, useNavigate } from "react-router-dom";
@@ -65,8 +66,8 @@ export default function Navbar(props) {
       method: "GET",
       credentials: "include",
     });
-    props.setAuth(null)
-    window.location.reload(true)
+    props.setAuth(null);
+    window.location.reload(true);
   };
 
   return (
@@ -78,14 +79,8 @@ export default function Navbar(props) {
         top='0'
         zIndex={1}>
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-          <Box
-            mr='30px'
-            fontSize={{ sm: "xl", md: "3xl", lg: "4xl", xl: "5xl" }}
-            as={NavLink}
-            _hover={{ textDecoration: "none" }}
-            to='/'
-            fontFamily={"Montserrat"}>
-            Logo
+          <Box as={NavLink} to='/'>
+            <Image src='/logo.png' height='4rem' margin='1rem 0' />
           </Box>
           <Spacer></Spacer>
 
