@@ -34,7 +34,7 @@ export default function SplitLoginPage() {
 
   const dealingWithLoginPageSubmission = async e => {
     e.preventDefault();
-    const response = await fetch("http://localhost:5000/user/loginUser", {
+    const response = await fetch("https://jobseeker-f7rl.onrender.com/user/loginUser", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
