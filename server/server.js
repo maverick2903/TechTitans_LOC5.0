@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(morgan("dev"));
 
-const whitelist = [""];
+const whitelist = ["https://jobseeker-f7rl.onrender.com"];
 const corsOptions = {
     origin: whitelist,
     optionsSuccessStatus: 200,
