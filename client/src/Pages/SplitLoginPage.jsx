@@ -33,6 +33,7 @@ export default function SplitLoginPage() {
   console.log(data);
 
   const dealingWithLoginPageSubmission = async e => {
+    e.preventDefault();
     const response = await fetch("https://jobseeker-f7rl.onrender.com/user/loginUser", {
       method: "POST",
       headers: {
