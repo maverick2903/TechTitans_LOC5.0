@@ -14,8 +14,8 @@ require('./databaseConnect')
 app.use(express.json());
 app.use(cookieParser());
 app.use(morgan("dev"));
-
-const whitelist = ["https://jobseeker-f7rl.onrender.com"];
+app.use(cors);
+/*const whitelist = ["https://jobseeker-f7rl.onrender.com"];
 const corsOptions = {
     origin: whitelist,
     optionsSuccessStatus: 200,
@@ -25,7 +25,7 @@ if (process.env.NODE_ENV === "development") {
     app.use(cors({ origin: true, credentials: true }));
 } else {
     app.use(cors(corsOptions));
-}
+}*/
 
 app.use('/user',user)
 app.use('/recruiter',recruiter)
